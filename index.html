@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="크리에이티브 포트폴리오 - 디자인과 기술의 만남">
-    <title>포트폴리오 | Creative Developer</title>
+    <meta name="description" content="강성희의 전략적 정보 큐레이터 포트폴리오 - 데이터를 가치 있는 인사이트로 변환합니다.">
+    <title>강성희 | Strategic Information Curator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -17,21 +17,21 @@
         }
 
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: rgba(255, 255, 255, 0.03);
-            --text-primary: #f0f0f5;
-            --text-secondary: #8888a0;
-            --text-muted: #55556a;
-            --accent-1: #6c5ce7;
-            --accent-2: #a29bfe;
-            --accent-3: #fd79a8;
-            --accent-4: #00cec9;
-            --gradient-1: linear-gradient(135deg, #6c5ce7, #a29bfe, #fd79a8);
-            --gradient-2: linear-gradient(135deg, #00cec9, #6c5ce7);
-            --border-color: rgba(255, 255, 255, 0.06);
-            --glass-bg: rgba(255, 255, 255, 0.04);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            --bg-primary: #fdfaf5;
+            --bg-secondary: #f5f2ed;
+            --bg-card: rgba(255, 255, 255, 0.8);
+            --text-primary: #1a2634;
+            --text-secondary: #4a5d75;
+            --text-muted: #8a9cb0;
+            --accent-1: #2c5f9e;
+            --accent-2: #5887bc;
+            --accent-3: #7aa5d9;
+            --accent-4: #4a90e2;
+            --gradient-1: linear-gradient(135deg, #2c5f9e, #5887bc);
+            --gradient-2: linear-gradient(135deg, #1a2634, #2c5f9e);
+            --border-color: rgba(44, 95, 158, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
 
         html {
@@ -584,6 +584,192 @@
             transform: translateY(0);
         }
 
+        /* ===== Featured Project Spotlight ===== */
+        .featured-project {
+            background: linear-gradient(135deg, rgba(44, 95, 158, 0.05), rgba(88, 135, 188, 0.1));
+            border-radius: 32px;
+            padding: 80px 40px;
+            margin: 40px auto;
+            max-width: 1100px;
+            border: 1px solid var(--border-color);
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-project::after {
+            content: "SAFE";
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 10rem;
+            font-weight: 900;
+            color: var(--accent-1);
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .featured-content {
+            z-index: 2;
+        }
+
+        .featured-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: var(--accent-1);
+            color: white;
+            border-radius: 100px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+
+        .featured-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .featured-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .featured-stats {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .feature-val {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent-1);
+        }
+
+        .feature-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .featured-visual {
+            position: relative;
+            z-index: 2;
+        }
+
+        .monitor-mockup {
+            background: white;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 30px 60px rgba(44, 95, 158, 0.15);
+            border: 1px solid var(--border-color);
+        }
+
+        .mock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .mock-badge {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 800;
+        }
+
+        .mock-badge.safe { background: #e3f9e5; color: #2ecc71; }
+        
+        .mock-news {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .mock-comments {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .mock-comment-item {
+            font-size: 0.75rem;
+            margin-bottom: 8px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .mock-toxic { color: #e74c3c; font-weight: 700; }
+
+        /* Price Chart Specific Mockup */
+        .price-chart-mockup {
+            background: #1a2634;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .chart-line {
+            width: 100%;
+            height: 120px;
+            margin-top: 20px;
+            position: relative;
+            background: linear-gradient(to right, rgba(44, 95, 158, 0.1) 0%, transparent 100%);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chart-path {
+            stroke: var(--accent-3);
+            stroke-width: 3;
+            fill: none;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawPath 2s ease forwards;
+        }
+
+        .chart-forecast {
+            stroke: #f1c40f;
+            stroke-width: 3;
+            stroke-dasharray: 5, 5;
+            fill: none;
+        }
+
+        @keyframes drawPath {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @media (max-width: 900px) {
+            .featured-project {
+                grid-template-columns: 1fr;
+                padding: 60px 30px;
+                gap: 40px;
+            }
+            .featured-title { font-size: 2rem; }
+        }
+
         /* ===== Responsive ===== */
         @media (max-width: 768px) {
             nav {
@@ -624,180 +810,157 @@
 <body>
     <!-- Animated Background Orbs -->
     <div class="bg-gradient-orbs">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
+        <div class="orb orb-1" style="background: var(--accent-1);"></div>
+        <div class="orb orb-2" style="background: var(--accent-3);"></div>
+        <div class="orb orb-3" style="background: var(--accent-4);"></div>
     </div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-logo">Portfolio.</div>
-        <ul class="nav-links">
-            <li><a href="#home">홈</a></li>
-            <li><a href="#skills">스킬</a></li>
-            <li><a href="#projects">프로젝트</a></li>
-            <li><a href="#contact">연락처</a></li>
-        </ul>
-    </nav>
 
     <div class="content">
         <!-- Hero Section -->
         <section class="hero" id="home">
             <div class="hero-content">
-
+                <div class="hero-image-container fade-in" style="margin-bottom: 40px; position: relative;">
+                    <img src="참고자료/ChatGPT Image 2026년 4월 1일 오전 09_28_21.png" alt="Strategic Information Curator" style="width: 100%; max-width: 700px; border-radius: 24px; box-shadow: 0 20px 80px rgba(0,0,0,0.1); border: 8px solid white;">
+                </div>
                 <h1>
                     안녕하세요,<br>
-                    <span class="gradient-text">크리에이티브 개발자</span><br>
-                    홍길동입니다
+                    <span class="gradient-text">전략적 정보 큐레이터</span><br>
+                    강성희입니다
                 </h1>
                 <p>
-                    디자인과 코드의 경계를 넘나들며, 사용자에게 
-                    즐거운 경험을 선사하는 웹 서비스를 만듭니다.
+                    복잡한 데이터를 명확한 인사이트로 큐레이션하며,<br>
+                    구조화된 정보의 가치를 만드는 전문가입니다.
                 </p>
                 <div class="hero-buttons">
                     <a href="#projects" class="btn btn-primary">
-                        프로젝트 보기 →
+                        포트폴리오 보기 →
                     </a>
                     <a href="#contact" class="btn btn-secondary">
-                        연락하기
+                        문의하기
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills">
-            <div class="section-header fade-in">
-                <span class="section-label">Skills</span>
-                <h2 class="section-title">제가 잘하는 것들</h2>
-                <p class="section-desc">다양한 기술 스택을 활용하여 완성도 높은 결과물을 만듭니다</p>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card fade-in">
-                    <div class="skill-icon purple">🎨</div>
-                    <h3>UI/UX 디자인</h3>
-                    <p>사용자 중심의 직관적인 인터페이스를 설계하고, 시각적으로 아름다운 디자인을 구현합니다.</p>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Figma</span>
-                        <span class="skill-tag">Photoshop</span>
-                        <span class="skill-tag">Prototyping</span>
-                    </div>
-                </div>
-                <div class="skill-card fade-in">
-                    <div class="skill-icon pink">💻</div>
-                    <h3>프론트엔드 개발</h3>
-                    <p>최신 웹 기술을 활용하여 반응형이고 인터랙티브한 웹 애플리케이션을 개발합니다.</p>
-                    <div class="skill-tags">
-                        <span class="skill-tag">HTML/CSS</span>
-                        <span class="skill-tag">JavaScript</span>
-                        <span class="skill-tag">React</span>
-                    </div>
-                </div>
-                <div class="skill-card fade-in">
-                    <div class="skill-icon teal">🤖</div>
-                    <h3>AI 활용</h3>
-                    <p>AI 도구를 활용하여 업무 효율을 높이고, 창의적인 문제 해결 방식을 제안합니다.</p>
-                    <div class="skill-tags">
-                        <span class="skill-tag">ChatGPT</span>
-                        <span class="skill-tag">Midjourney</span>
-                        <span class="skill-tag">Automation</span>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Stats Section -->
-        <section class="stats-section">
-            <div class="stats-grid fade-in">
-                <div class="stat-item">
-                    <h3>3+</h3>
-                    <p>프로젝트 완료</p>
-                </div>
-                <div class="stat-item">
-                    <h3>100%</h3>
-                    <p>열정</p>
-                </div>
-                <div class="stat-item">
-                    <h3>∞</h3>
-                    <p>성장 가능성</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects">
-            <div class="section-header fade-in">
-                <span class="section-label">Projects</span>
-                <h2 class="section-title">최근 프로젝트</h2>
-                <p class="section-desc">직접 기획하고 개발한 프로젝트들입니다</p>
-            </div>
-            <div class="projects-grid">
-                <div class="project-card fade-in">
-                    <div class="project-thumbnail">
-                        <div class="project-thumbnail-bg thumb-1">🛒</div>
-                    </div>
-                    <div class="project-info">
-                        <h3>쇼핑몰 랜딩페이지</h3>
-                        <p>반응형 디자인으로 제작한 온라인 쇼핑몰 메인 페이지</p>
-                        <a href="#" class="project-link">자세히 보기 →</a>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <div class="project-thumbnail">
-                        <div class="project-thumbnail-bg thumb-2">📊</div>
-                    </div>
-                    <div class="project-info">
-                        <h3>데이터 대시보드</h3>
-                        <p>실시간 데이터를 시각화하는 인터랙티브 대시보드</p>
-                        <a href="#" class="project-link">자세히 보기 →</a>
-                    </div>
-                </div>
-                <div class="project-card fade-in">
-                    <div class="project-thumbnail">
-                        <div class="project-thumbnail-bg thumb-3">💬</div>
-                    </div>
-                    <div class="project-info">
-                        <h3>AI 챗봇 서비스</h3>
-                        <p>AI를 활용한 고객 상담 자동화 챗봇 웹앱</p>
-                        <a href="#" class="project-link">자세히 보기 →</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact">
-            <div class="section-header fade-in">
-                <span class="section-label">Contact</span>
-                <h2 class="section-title">함께 일해요</h2>
-                <p class="section-desc">새로운 기회와 협업을 기다리고 있습니다</p>
-            </div>
-            <div class="contact-wrapper fade-in">
-                <div class="contact-card">
-                    <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 8px;">
-                        언제든 편하게 연락주세요 ✉️
+        <!-- Project Spotlight Section -->
+        <section id="spotlight" style="padding-top: 0;">
+            <div class="featured-project fade-in">
+                <div class="featured-content">
+                    <div class="featured-badge">Featured Case Study</div>
+                    <h2 class="featured-title">
+                        AI 기반 실시간 뉴스 가디언<br>
+                        <span class="gradient-text">(SHINee Guard)</span>
+                    </h2>
+                    <p class="featured-desc">
+                        복잡한 미디어 환경에서 AI 기술을 통해 정보의 투명성과 안전성을 확보합니다. 
+                        실시간 뉴스 데이터 수집, 댓글 독성 분석, 그리고 정제된 인사이트를 제공하는 전략적 정보 감시 체계입니다.
                     </p>
-                    <p style="font-size: 1.4rem; font-weight: 700;">
-                        hello@example.com
-                    </p>
-                    <div class="contact-links">
-                        <a href="https://github.com" class="contact-link" target="_blank">
-                            🐙 GitHub
-                        </a>
-                        <a href="https://linkedin.com" class="contact-link" target="_blank">
-                            💼 LinkedIn
-                        </a>
-                        <a href="https://instagram.com" class="contact-link" target="_blank">
-                            📸 Instagram
-                        </a>
+                    <div class="featured-stats">
+                        <div class="feature-item">
+                            <span class="feature-val">99%</span>
+                            <span class="feature-label">AI 정확도</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-val">Real-time</span>
+                            <span class="feature-label">모니터링</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-val">80.0%</span>
+                            <span class="feature-label">Clean Index</span>
+                        </div>
+                    </div>
+                    <a href="news_dashboard (2).html" class="btn btn-primary" target="_blank">대시보드 체험하기 →</a>
+                </div>
+                <div class="featured-visual">
+                    <div class="monitor-mockup">
+                        <div class="mock-header">
+                            <span style="font-weight: 800; font-size: 0.8rem; color: var(--accent-1);">🛡 NEWS MONITOR</span>
+                            <span class="mock-badge safe">SAFE: 86.7%</span>
+                        </div>
+                        <div class="mock-content">
+                            <div class="mock-news">샤이니 온유, 미니 5집 'TOUGH LOVE'.. 더 깊어진 분위기</div>
+                            <div class="mock-comments">
+                                <div class="mock-comment-item">● <span class="mock-toxic">** ** 댓글입니다 무시하세요.</span></div>
+                                <div class="mock-comment-item">● <span>활동 너무 기대돼요! 💎</span></div>
+                                <div class="mock-comment-item">● <span class="mock-toxic">*** 소리 좀 안 나게 해라.</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Second Project Spotlight: Seoul Price Insight -->
+        <section id="spotlight-2" style="padding-top: 0;">
+            <div class="featured-project fade-in" style="background: linear-gradient(135deg, rgba(26, 38, 52, 0.05), rgba(44, 95, 158, 0.1));">
+                <div class="featured-visual" style="order: 2;">
+                    <div class="price-chart-mockup">
+                        <div class="mock-header" style="border-color: rgba(255, 255, 255, 0.1);">
+                            <span style="font-weight: 800; font-size: 0.8rem; color: var(--accent-3);">🤖 AI PRICE FORECAST</span>
+                            <span class="mock-badge" style="background: rgba(241, 196, 15, 0.2); color: #f1c40f;">LSTM MODEL</span>
+                        </div>
+                        <div class="mock-content">
+                            <div class="mock-news" style="color: white; font-size: 1.1rem;">삼겹살(600g) 가격 예측 추이</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 20px;">최근 7일 예측: +4.2% 상승 전망</div>
+                            <div class="chart-line">
+                                <svg viewBox="0 0 400 120" style="width: 100%; height: 100%;">
+                                    <!-- Actual Path -->
+                                    <path class="chart-path" d="M0,100 L50,90 L100,95 L150,70 L200,80 L250,60 L300,65" />
+                                    <!-- Forecast Path (Dashed) -->
+                                    <path class="chart-forecast" d="M300,65 L350,45 L400,30" />
+                                    <!-- Points -->
+                                    <circle cx="300" cy="65" r="4" fill="var(--accent-3)" />
+                                    <circle cx="400" cy="30" r="4" fill="#f1c40f" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-content" style="order: 1;">
+                    <div class="featured-badge" style="background: #1a2634;">Predictive Analytics</div>
+                    <h2 class="featured-title">
+                        서울 생필품 물가 예측 AI<br>
+                        <span class="gradient-text">(Price Insight)</span>
+                    </h2>
+                    <p class="featured-desc">
+                        서울시의 방대한 물가 데이터를 딥러닝 기반 시계열 모델(LSTM)로 분석하여 지능형 물가 관리 시스템을 구축했습니다. 상추, 오이, 삼겹살 등 주요 품목의 변동을 사전에 감지하고 최적의 구매 시점을 제안합니다.
+                    </p>
+                    <div class="featured-stats">
+                        <div class="feature-item">
+                            <span class="feature-val">95%</span>
+                            <span class="feature-label">예측 신뢰도</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-val">LSTM</span>
+                            <span class="feature-label">RNN 모델링</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-val">30 Days</span>
+                            <span class="feature-label">미래 전망</span>
+                        </div>
+                    </div>
+                    <a href="streamlit_app (1).py" class="btn btn-secondary" style="background: #1a2634; color: white;">AI 분석 엔진 보기 →</a>
+                </div>
+            </div>
+        </section>
+
+
+            <div class="contact-wrapper fade-in" style="margin-top: 0;">
+                <div class="contact-card" style="padding: 60px 40px; background: none; border: none; backdrop-filter: none;">
+                    <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 16px;">
+                        새로운 통찰을 나눕니다. 전략적 파트너가 필요하시면 연락주세요. ✉️
+                    </p>
+                    <p style="font-size: 2.2rem; font-weight: 800; color: var(--accent-1); letter-spacing: -1px;">
+                        contact@kshee.me
+                    </p>
+                </div>
+            </div>
 
         <!-- Footer -->
         <footer>
-            <p>© 2026 홍길동 · Built with ❤️ and <a href="https://pages.github.com" target="_blank">GitHub Pages</a></p>
+            <p>© 2026 강성희 · Strategic Information Curator · Built for Excellence</p>
         </footer>
     </div>
 
