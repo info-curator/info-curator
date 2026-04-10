@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서울 스마트 대시보드 (Seoul Smart Dashboard)</title>
+    
+    <!-- SEO & Meta Tags -->
+    <meta name="description" content="AI 기반 서울시 날씨, 로컬 물가 동향 및 최신 문화행사를 통합하여 제공하는 프리미엄 대시보드입니다.">
+    <meta name="keywords" content="서울, 날씨, 물가, 문화행사, 대시보드, Seoul, Dashboard">
+    
+    <!-- Fonts (Pretendard) -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+
+    <!-- Leaflet.js (Map) CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+    
+    <!-- Icons (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="animated-bg"></div>
+    
+    <div class="dashboard-wrapper">
+        <header class="glass-header">
+            <div class="logo">
+                <i data-lucide="layout-dashboard"></i>
+                <h1>서울 스마트 대시보드</h1>
+            </div>
+            <div class="live-clock" id="live-clock">
+                시간 로딩 중...
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            <!-- Weather Widget -->
+            <section class="glass-card widget weather-widget">
+                <div class="widget-header">
+                    <h2><i data-lucide="cloud-sun"></i> 대한민국 주요 날씨</h2>
+                    <select id="weather-city-select" class="glass-select" style="font-size:0.8rem; padding:0.2rem 1.5rem 0.2rem 0.5rem; background-position:right 0.2rem center;">
+                        <option value="seoul">서울 (Seoul)</option>
+                        <option value="busan">부산 (Busan)</option>
+                        <option value="jeju">제주 (Jeju)</option>
+                    </select>
+                </div>
+                <!-- Weather Details -->
+                <div class="weather-content" id="weather-content">
+                    <div class="loader"></div>
+                </div>
+                <div style="text-align:center; margin-top:1rem;">
+                    <button onclick="window.open('https://topis.seoul.go.kr/map/openCctvMap.do', '_blank')" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.3); color:#fff; padding:0.6rem 1.2rem; border-radius:8px; cursor:pointer; font-family:inherit; transition:0.2s; display:inline-flex; align-items:center; gap:0.5rem;"><i data-lucide="video" style="width:16px;"></i> 실시간 서울 교통/날씨 CCTV 보기</button>
+                </div>
+            </section>
+
+            <!-- Price Insight Widget -->
+            <section class="glass-card widget price-widget">
+                <div class="widget-header">
+                    <h2><i data-lucide="trending-up"></i> 물가 동향 및 AI 예측</h2>
+                    <select id="price-item-select" class="glass-select">
+                        <option value="배추">배추</option>
+                        <option value="삼겹살">삼겹살</option>
+                        <option value="고등어">고등어</option>
+                        <option value="계란">계란 (1판)</option>
+                        <option value="양파">양파 (1망)</option>
+                        <option value="사과">사과 (10개)</option>
+                        <option value="닭고기">닭고기 (1kg)</option>
+                        <option value="쌀">쌀 (20kg)</option>
+                        <option value="소고기">소고기 (한우 600g)</option>
+                        <option value="우유">우유 (1L)</option>
+                        <option value="대파">대파 (1단)</option>
+                        <option value="상추">상추 (100g)</option>
+                        <option value="오징어">오징어 (2마리)</option>
+                    </select>
+                </div>
+                <div class="chart-container">
+                    <canvas id="priceChart"></canvas>
+                </div>
+                <div class="price-summary" id="price-summary">
+                    <!-- AI Insight text goes here -->
+                </div>
+            </section>
+
+            <!-- Cultural Events Map -->
+            <section class="glass-card widget culture-widget">
+                <div class="widget-header">
+                    <h2><i data-lucide="map-pinned"></i> 주요 문화행사 및 전시 (수도권 중심)</h2>
+                </div>
+                <div class="map-container" id="culture-map">
+                    <!-- Leaflet map goes here -->
+                </div>
+                
+                <h3 style="font-size: 1rem; margin-bottom: 0.8rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;">📅 추천 행사 목록 (최신순)</h3>
+                
+                <div class="event-list" id="event-list">
+                    <div class="loader"></div>
+                </div>
+                
+            </section>
+        </main>
+    </div>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Leaflet.js -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <!-- Static Local Data (Bypasses CORS error) -->
+    <script src="data.js"></script>
+    <!-- Custom Script -->
+    <script src="script.js"></script>
+</body>
+</html>
