@@ -3,1044 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚙️ Samsung News & Market Monitor</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        :root {
-            --primary: #1428A0; /* Samsung Blue */
-            --secondary: #000000;
-            --bg: #f8f9fc;
-            --card-bg: #ffffff;
-            --text: #2d3436;
-            --accent: #E5F0FF;
-            --safe: #2ecc71;
-            --toxic: #e74c3c;
-            --neutral: #f39c12;
-        }
-        body {
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        header {
-            text-align: center;
-            padding: 40px 0;
-            border-bottom: 4px solid var(--primary);
-            margin-bottom: 40px;
-            background: white;
-            border-radius: 0 0 20px 20px;
-        }
-        h1 {
-            color: var(--primary);
-            margin: 0;
-            font-size: 2.5em;
-            font-weight: 800;
-        }
-        p.subtitle {
-            color: #636e72;
-            font-size: 1.1em;
-            margin-top: 10px;
-        }
-        
-        /* Stats Section */
-        .stats-section {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin-bottom: 50px;
-        }
-        .stats-card {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            height: 350px;
-            display: flex;
-            flex-direction: column;
-        }
-        .stats-card h2 {
-            margin-top: 0;
-            font-size: 1.25em;
-            color: var(--primary);
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        .chart-container {
-            flex-grow: 1;
-            position: relative;
-        }
-        
-        /* News Grid */
-        .section-title {
-            margin-top: 40px;
-            margin-bottom: 25px;
-            padding-left: 10px;
-            border-left: 5px solid var(--primary);
-            color: var(--primary);
-            font-size: 1.5em;
-            font-weight: 800;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-        }
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            border-bottom: 3px solid transparent;
-        }
-        .card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary);
-        }
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        .source-tag {
-            background: var(--accent);
-            color: var(--primary);
-            padding: 6px 14px;
-            border-radius: 15px;
-            font-size: 0.8em;
-            font-weight: 700;
-        }
-        .safety-badge {
-            font-size: 0.8em;
-            font-weight: 800;
-            padding: 6px 12px;
-            border-radius: 8px;
-        }
-        .safety-badge.safe { background: #dff9fb; color: var(--safe); }
-        .safety-badge.neutral { background: #ffeaa7; color: var(--neutral); }
-        .safety-badge.toxic { background: #fab1a0; color: var(--toxic); }
-        
-        .title {
-            font-size: 1.15em;
-            font-weight: 800;
-            margin-bottom: 12px;
-            color: var(--text);
-            line-height: 1.4;
-        }
-        
-        .summary {
-            font-size: 0.9em;
-            color: #636e72;
-            line-height: 1.5;
-            margin-bottom: 15px;
-            flex-grow: 1;
-        }
-        
-        .monitor-pane {
-            background: #f1f2f6;
-            border-radius: 8px;
-            padding: 12px;
-            margin-top: auto;
-            font-size: 0.85em;
-        }
-        .monitor-header {
-            font-weight: 800;
-            color: var(--primary);
-            display: flex;
-            justify-content: space-between;
-        }
-        
-        .link {
-            text-decoration: none;
-            color: var(--primary);
-            font-weight: 800;
-            font-size: 0.9em;
-            margin-top: 15px;
-            text-align: right;
-            display: block;
-            transition: color 0.2s;
-        }
-        .link:hover {
-            color: #000;
-        }
-
-        @media (max-width: 900px) {
-            .stats-section { grid-template-columns: 1fr; }
-            .grid { grid-template-columns: 1fr; }
-        }
-    </style>
+    <title>강성희 | 전략적 정보 큐레이터 & AI 데이터 저널리스트</title>
+    <meta name="description" content="데이터로 스토리를 만들고, AI로 임팩트를 확장하는 전략적 정보 큐레이터 강성희의 포트폴리오입니다.">
+    <!-- Google Fonts: Orbit, Noto Sans KR, Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+KR:wght@300;500;700&family=Orbit&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>⚙️ Samsung News & Market Monitor</h1>
-            <p class="subtitle">삼성전자 핵심 사업부 및 경쟁사 실시간 동향 (업데이트: 2026-04-10 11:01)</p>
-        </header>
+    <header id="header">
+        <nav class="container">
+            <div class="logo">강성희.<span>Portfolio</span></div>
+            <ul class="nav-links">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#vision">Vision</a></li>
+                <li><a href="#process">Process</a></li>
+                <li><a href="#achievements">Projects</a></li>
+                <li><a href="#tech">Tech Stack</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <h2 class="section-title">📊 핵심 지표 시각화 (Overview)</h2>
-        <div class="stats-section">
-            <div class="stats-card">
-                <h2>카테고리별 보도 비중 (Volume)</h2>
-                <div class="chart-container">
-                    <canvas id="categoryChart"></canvas>
+    <main>
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <h1 class="reveal">데이터로 스토리를 만들고,<br><span>AI로 임팩트를 확장</span>하는 사람</h1>
+                    <p class="subtitle reveal">강성희 | 전략적 정보 큐레이터 & AI 데이터 저널리스트</p>
+                    <div class="cta reveal">
+                        <a href="#achievements" class="btn btn-primary">포트폴리오 보기</a>
+                        <a href="index.html" target="_blank" class="btn btn-primary" style="background:#1428A0;">삼성 뉴스 대시보드</a>
+                        <a href="#contact" class="btn btn-secondary">문의하기</a>
+                    </div>
+                </div>
+                <div class="hero-image reveal">
+                    <img src="assets/hero.png" alt="Strategic Information Curator">
                 </div>
             </div>
-            <div class="stats-card">
-                <h2>오늘의 핫 토픽 Top 10 (Keywords)</h2>
-                <div class="chart-container">
-                    <canvas id="keywordChart"></canvas>
+        </section>
+
+        <!-- Vision Section -->
+        <section id="vision">
+            <div class="container">
+                <h2 class="section-title">Vision & Strategy</h2>
+                <div class="vision-grid">
+                    <div class="vision-card reveal">
+                        <h3>현장의 가치</h3>
+                        <ul>
+                            <li>전략적 정보 큐레이팅</li>
+                            <li>시민 언어로의 정책 번역</li>
+                            <li>공간 및 문화 경험 설계</li>
+                        </ul>
+                    </div>
+                    <div class="vision-center reveal">
+                        <div class="core-box">
+                            AI 기반<br>데이터 저널리즘<br>& 실무형 콘텐츠
+                        </div>
+                    </div>
+                    <div class="vision-card reveal">
+                        <h3>기술의 힘</h3>
+                        <ul>
+                            <li>AI & Machine Learning 모델링</li>
+                            <li>Python 기반 데이터 분석</li>
+                            <li>RAG / 에이전트 기반 자동화</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="vision-desc reveal">
+                    <p>"복잡한 행정/정책 정보를 시민의 관점에서 재가공하고, 기술을 통해 그 전달력을 극대화합니다."</p>
                 </div>
             </div>
-        </div>
+        </section>
 
-        
-            <h2 class="section-title">🏢 DX (모바일/가전)</h2>
-            <div class="grid">
-                
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">파이낸셜포스트</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">삼성 가전 1000만원 사고 N32 매트리스 고르면 '마일리지 2배' - 파이낸셜포스트</div>
-    <div class="summary">삼성 가전 1000만원 사고 N32 매트리스 고르면 '마일리지 2배'    파이낸셜포스트</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성 가전</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMidEFVX3lxTE9lbXFlQ1NnTHNMakNHQTBLQW04MkJzUFV0NkZZcDlXTmlYQzBsRzUwd0JwTHhFSFB4UEtCbTVsYXN4aWYzbjV3c24zSWN5LVlyeG5wcEZQbkdZNzRWMHN0UXBpWjFnclRINmJqTExpdXJDZTVF?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">kmjournal.net</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">"삼성 헬스가 자동차로 쏙~"… 운전자 부정맥까지 잡는 하만의 미래차 - kmjournal.net</div>
-    <div class="summary">"삼성 헬스가 자동차로 쏙~"… 운전자 부정맥까지 잡는 하만의 미래차    kmjournal.net</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성 가전</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMia0FVX3lxTE54WVM2aGV3dnV2c0RaT3Nxck5NZGpTYkJ3SkxhTEpwWXVJbHUzR21zRWNRNUozVDVqSmZMRVkxM2lnYzFfdGV0NG1XRDNCbWNKbjAyQVYtTmd0bVFuYS1uQzdxZFJJMld2VlF3?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">네이트</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">애플 첫 폴더블 아이폰, 삼성디스플레이가 잡았다…3년 독점 공급설 - 네이트</div>
-    <div class="summary">애플 첫 폴더블 아이폰, 삼성디스플레이가 잡았다…3년 독점 공급설    네이트</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성전자 스마트폰</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTE9Nd3ZoWndhc1hwUXBIM3VBUU9aSWMzdWdTQ1cxd05XQTZza2FXVTJtM2xtS0FOSHNNZ0ZOeDlRYk9JeksyWmltQlRUaWk0YUpkVmpR?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">디지털데일리</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">쿠팡, 삼성·LG 이어 TCL 라인업 추가…4도어 대용량 모델 선봬 - 디지털데일리</div>
-    <div class="summary">쿠팡, 삼성·LG 이어 TCL 라인업 추가…4도어 대용량 모델 선봬    디지털데일리</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성 가전</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiYkFVX3lxTE1YaHhLdkNuNTBXQkdBaS0tQWNtR2Fwcmg4X3UwSHJGc2QxaGd4Y2NGWHUtZGNrZF9PdDF1VHU3TlI2M1Y1NTEzaXlnV1BFZmoxODRwNW5adHNwNGt3NmNKYjBn?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">elec4</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">삼성전자, 사용자 경험 중심 설계 강화한 갤럭시 디자인 진화 공개 - elec4</div>
-    <div class="summary">삼성전자, 사용자 경험 중심 설계 강화한 갤럭시 디자인 진화 공개    elec4</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성 갤럭시</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMibkFVX3lxTE1sM3AyZmZOMndvRldvZmVXa0o3anJpRGx5ZmY5SjlmOWN0RXNjMUNsVHlDb2hrMm42c2xtMi1xQ0JacTBBZGxCZzB1bXg5WDhtekJ3cWFraTJsZlVqZWxsNzJobWFrRmV2M3dhUVd3?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">fetv.co.kr</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">쿠팡, 삼성·LG 이어 TCL 추가…가전 라인업 다변화 - fetv.co.kr</div>
-    <div class="summary">쿠팡, 삼성·LG 이어 TCL 추가…가전 라인업 다변화    fetv.co.kr</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성 가전</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiX0FVX3lxTE1tMWM4TlBsZWVndXNmNFVrYUVUTjhwNUR2dFY4V0t0OWROdjZfc19MamRyZnA5ZzNURDlmaWFucklaR051MDhqakFkdGFJQUNZaFhZRFFPcWpqeG56R3hn?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">네이트</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">"마지막 2899달러의 기회"…삼성 갤럭시Z 트라이폴드, 美 기습 재입고에 '들썩' - 네이트</div>
-    <div class="summary">"마지막 2899달러의 기회"…삼성 갤럭시Z 트라이폴드, 美 기습 재입고에 '들썩'    네이트</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성 갤럭시</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTE04MFMwWnZBLXU4bkpGd0lIcHFxdFh0WmJ5dDZwRkoxSzEzcVhxaGRsVjR1RVNXTDN5WE1XeWRrNXFaYnlYMmREMlRtNlExQXJBWllZ?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">디지털데일리</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">“마지막 2899달러의 기회”... 삼성 갤럭시Z 트라이폴드, 美 기습 재입고에 ‘들썩’ - 디지털데일리</div>
-    <div class="summary">“마지막 2899달러의 기회”... 삼성 갤럭시Z 트라이폴드, 美 기습 재입고에 ‘들썩’    디지털데일리</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성 갤럭시</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiZEFVX3lxTFBrSW5rUEt1eUxjVEQ3Y2hIU3huOWV6M0tSb1lOZW96RjZ5aHFEckNIWWJ1Nm1DcTBmY0lmODZKTk0xOFMxeVc3R2tlRkp4QlkwNkMwMHBXWTJPeVZmUlpxMFJvNl8?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">v.daum.net</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">"하룻새 90만원 폭등, 빨랑 사" 노트북 이어 휴대폰 값까지 '불안불안' - v.daum.net</div>
-    <div class="summary">"하룻새 90만원 폭등, 빨랑 사" 노트북 이어 휴대폰 값까지 '불안불안'    v.daum.net</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성전자 스마트폰</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiT0FVX3lxTE1CaVh5UWFBY24tSVJaNEVEbzE2X2xpMjhiRnB2ZlE2Mk9HbmpMZ1BqbXhoYlRWOWxjcXJxQ2FRWnl1eVkxaWZMcC1xOFJiQ1E?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">samsung.com</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">[인터뷰] 마라토너 ‘제이콥 키플리모’, 갤럭시 워치와 함께 만들어낸 세계 신기록을 향한 여정 - samsung.com</div>
-    <div class="summary">[인터뷰] 마라토너 ‘제이콥 키플리모’, 갤럭시 워치와 함께 만들어낸 세계 신기록을 향한 여정    samsung.com</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성 갤럭시</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMirAJBVV95cUxPaWtoWDlBNkxRVVYyUzl0a3JIVmZSV1AyR09ZaWE0Ti00NFZTTWxOamF4RUVRa1pzTUNGb0l5VmFIOHExNzlGalloaFkwZXcweF9tbktjODNxMnpQTVY0VU96TTFPUkU0V3huRm9oZi1LeF9IeDJkVVBDeXc3ZWM2UEJrVXlEN0JuUXI1SERnSXFFMGpabk5lcW9HWndHVlFzcnRHNVBXWDdILWFXam9GU2RNMHNldU01RkEtdGhVSnRNS25vWk12NnJ6a296ZVBNSjZCanVqeTlSbGxDMWRTRGIxdjZ4NVN5bk44RTE0d2lJODZzLWxpemVocmRwWHV3c3RabEZRN2ZRZ25Gd2t6TlFHZGx3MFowSWJMaXVDY3pPS2d6b3laOFpHQ2E?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">이데일리</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">S펜 머리까지 바꿨다…갤S26 울트라 '7R 곡률'에 숨은 디테일[모닝폰] - 이데일리</div>
-    <div class="summary">S펜 머리까지 바꿨다…갤S26 울트라 '7R 곡률'에 숨은 디테일[모닝폰]    이데일리</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성 갤럭시</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMigAFBVV95cUxOa0w5XzdycnhZa2NfN0VNV0g1U3A2a0NTYWlOVVJNX0ktVEw4YU1YM1NRa0F3dWVNaVNCemFhU0x1SkJ0Zm16a09EY25zQ0ZTM1A1dkFJckFkY2dNelhyVHQ4WDk1T1B0c2FSYzB3WFJpRS1wYnh2WWNQN3Bla0NzUg?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">직썰</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">멕시코 우회로 막히나…삼성·LG, ‘관세 재조정’에 고심 - 직썰</div>
-    <div class="summary">멕시코 우회로 막히나…삼성·LG, ‘관세 재조정’에 고심    직썰</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성 가전</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiaEFVX3lxTE1VWDcxMHdkdFo2WGJyb3FrZ0FvUTJ6SkpYYmp0TkV0cE5ybU9icXo3aUZ3Q3E2Vzc4M01Hcl9velhfZUhSN3NRaUMwbFFJOUkyQmlDNFBNX1dXWGY1elBTdXF5SHdqSmpn0gFsQVVfeXFMTVBxSnFvRkh2U3BVZm5vb2djTlBPclNucmo3amJYTy10MWhPcFBBT0hVd3hHUkl0dV82UWdsS3U4bzlsMUR0Sm04R0oyMC12VDU4WUx4OFFSaVdWYnpWZklCUGI4M3g5dzhaU25r?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
+        <!-- Process Section -->
+        <section id="process">
+            <div class="container">
+                <h2 class="section-title">5-Phase Pipeline</h2>
+                <div class="pipeline">
+                    <div class="step reveal">
+                        <div class="step-num">01</div>
+                        <h4>사전 조사</h4>
+                        <p>정책/제도 확인, 기초 데이터 수립</p>
+                    </div>
+                    <div class="step reveal">
+                        <div class="step-num">02</div>
+                        <h4>현장 동행</h4>
+                        <p>시민 동선 기반 직접 체험 및 취재</p>
+                    </div>
+                    <div class="step reveal">
+                        <div class="step-num">03</div>
+                        <h4>사실 검증</h4>
+                        <p>담당자 인터뷰 및 핵심 정보 교차 검증</p>
+                    </div>
+                    <div class="step reveal">
+                        <div class="step-num">04</div>
+                        <h4>시민 언어 번역</h4>
+                        <p>행정 용어를 명확하고 쉬운 언어로 재구성</p>
+                    </div>
+                    <div class="step reveal">
+                        <div class="step-num">05</div>
+                        <h4>콘텐츠 시각화</h4>
+                        <p>카드뉴스, 체크리스트 등으로 직관적 발행</p>
+                    </div>
+                </div>
             </div>
-            
-            <h2 class="section-title">🏢 DS (반도체)</h2>
-            <div class="grid">
-                
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">더구루</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">'삼성전자 공급사' 이엔에프, 美 카일 공장 증설 동시에 자유무역지구 지정 추진 - 더구루</div>
-    <div class="summary">'삼성전자 공급사' 이엔에프, 美 카일 공장 증설 동시에 자유무역지구 지정 추진    더구루</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성전자 반도체</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTE8wWGVDQkpRTks5MmtmU3ZQM2hLXzFNQkZWbGVraVRTbVpIbjNNVjZuY3ZqRU1YNG1FUVAtUVRSeHFRWWpaaEJqd0IyZWpCQVJ1OTRzQmhZaXJ3S1VpaVNqTHdoOA?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
+        </section>
 
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">네이트</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">디바이스, 삼성전자와 반도체 세정장비 공급 계약 체결 - 네이트</div>
-    <div class="summary">디바이스, 삼성전자와 반도체 세정장비 공급 계약 체결    네이트</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성전자 반도체</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTE9kcFFRaHlfVnB6OFQ1OW1rQ3NKelhYbEEtRF9uLTFVVnV0TWpZcnFDZndQUEJZd0V0ckFmSTR5aEVyQ1pNSU8zVm94UDh2czN5dWtR?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">디지털투데이</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">디바이스, 삼성전자와 반도체 세정장비 공급 계약 체결 - 디지털투데이</div>
-    <div class="summary">디바이스, 삼성전자와 반도체 세정장비 공급 계약 체결    디지털투데이</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성전자 반도체</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMic0FVX3lxTE5hRzduY3N3MjQ5RElwNHk5OXBEQi1tdkltakttSG5UUnlWc0hmOF95M3hVS2pGY04wMXlaMV9vYVpxU0xxOWo2RGw4ZXlhSXd4Z2IxX2psUUtvSWlhTXc0bkxmMjRBOFBONjBjbUkxTFNiejg?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">네이트</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">반도체 '슈퍼사이클 온기' 중견·중소기업에 퍼진다…실적 기대감 '후끈' [중기+] - 네이트</div>
-    <div class="summary">반도체 '슈퍼사이클 온기' 중견·중소기업에 퍼진다…실적 기대감 '후끈' [중기+]    네이트</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성전자 반도체</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTE9IR0FZaDhJcGdHcFhFcUZrMU1ESjhodFhhNU5wdjROR0h4bW9UakhnYXNLcjVYRlAwd0JWRGtJTnNKamFZUjhDWTkxUXNaTjBFWk1J?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">핀포인트뉴스</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">챗GPT 탑재 스마트폰 나온다... 온디바이스 AI株 네패스 삼성전기 네패스아크 퀄리타스반도체 '방긋' - 핀포인트뉴스</div>
-    <div class="summary">챗GPT 탑재 스마트폰 나온다... 온디바이스 AI株 네패스 삼성전기 네패스아크 퀄리타스반도체 '방긋'    핀포인트뉴스</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성전자 반도체</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMic0FVX3lxTE9MN21QM0FVYUtra0VKaFU5OVlFVnJOdzZuc293d211VWltc3J0RWNTQjI2TnJDdGRZenhtbU05ZDNwTDVXQkliUjh2cWxPd09PekhUWHp4VkJGM1BwTF9fbVh1QW4wOVhGX05PVW9xUmpBMFHSAXdBVV95cUxNbmd3M1hZN1lLUG1yRG5zZjdhY0hNUkZMRnNnUl93VXNoNDFKU2k1VEdWS2gwRWE4T3h2RjdDN25KXzFhMWVDeU9mTndqMV81UUdMV3dsSTdNUkRPYUdnbnA5eDI1MVFkSU9XdDhQSE5wWVZLdUdCMA?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">뉴스프리존</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">﻿“반도체 슈퍼사이클에 올라탄 개인”···TIGER 반도체TOP10에 2조원 유입 - 뉴스프리존</div>
-    <div class="summary">﻿“반도체 슈퍼사이클에 올라탄 개인”···TIGER 반도체TOP10에 2조원 유입    뉴스프리존</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성전자 반도체</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMic0FVX3lxTE4yTW5TSWt3aHNUR193ZDhBUnkwVU9UdVZFTC1keHo2Q0Q1dGhlMkdTYkNoSlhHbi1Fa21mODJxWHZNUWlUVzViRFJralpsNlJOLXdYTnBjdE5lY2FaUDY2M2VDM0FCZkk2bHBRNXdwUnNTREHSAXdBVV95cUxPeWtEd2pfSTRnSEdsR2h0SzZqZEhtLXVVN2p4VGRDdllRMl9kaUR2cEtiU2VBNDZvaVFJMkhwRFBFMlQ1eDF6OTVOSVVxd3pfeTc5SzR1Q1NDaVp4MUJkMDhWVE5pQlE4VWJDZFdOSGZUbnRiZUU2Yw?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">KB Think</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">[윤영숙의 시선] 삼성전자 방사선 피폭 사고 이후 2년 - KB Think</div>
-    <div class="summary">[윤영숙의 시선] 삼성전자 방사선 피폭 사고 이후 2년    KB Think</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성전자 반도체</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMickFVX3lxTE5ycHFoSmt1SFpMZWRqNHZkRGYyS25HTGZkekt0a3lUY0JtSXJ4aHptVk5wQlFpOUt6V056bFlhR0toc0RDaFJXckZQbGRUejgzOGhZaTd3UWZfVzdGczUyY1dyelRaakl3UWFLVXZxQUllQQ?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">아세안데일리 뉴스</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">[속보] 블룸버그 "삼성, 베트남에 40억달러 반도체 투자 검토" - 아세안데일리 뉴스</div>
-    <div class="summary">[속보] 블룸버그 "삼성, 베트남에 40억달러 반도체 투자 검토"    아세안데일리 뉴스</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성전자 반도체</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMickFVX3lxTE01S20ycEVoOVRRemFqUjVrZW1SV2pFd1dfdThDOS1uQXFPUUYzSEc5S1E5ckRyVmRYYmhXRXNXM015QnV0azR2SkEzZkhZZzFHdnpFaVpfNEwzVHpzc0c3RzVUbVk3b01faVR2NDZsLVl5QQ?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">비즈니스포스트</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">삼성전기 주가 장중 12%대 강세, 차세대 반도체 소재부문 경쟁력 부각 - 비즈니스포스트</div>
-    <div class="summary">삼성전기 주가 장중 12%대 강세, 차세대 반도체 소재부문 경쟁력 부각    비즈니스포스트</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성전자 반도체</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMic0FVX3lxTFBuMlcwaFBNM3B2VzdTQTVFZE9tMVp1RVRmbnVSa1dSOXBNcWJmdlEycjZKbjdxTVdsbF8wSVNnQzdhMHh5dTdHQlJ1ZWw5ZGZrLWFkeG1qYURlY2JqWHFkMng0Tk9GcWg0enNsb05CSnRUOGs?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">데이터투자</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">디바이스, 삼성전자와 69억원 규모 반도체 세정장비 계약 - 데이터투자</div>
-    <div class="summary">디바이스, 삼성전자와 69억원 규모 반도체 세정장비 계약    데이터투자</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성전자 반도체</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMic0FVX3lxTE81anV0ejBJaklCYUFnSXFHZjU0NG9nUEpSeldKbE01aVB2RGtTZHpTWHJXRmRhLUo5TGlUOEFMRFFiS2ZVaHM1dy1fel9ZNUlYRFJOUFZkZElmeFFKVGktM0NqdDJzNTVEQ25PeFBmVzAxdzA?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">뉴데일리 경제</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">'휴전 지속 기대감' 코스피 5900선 재도전 … 반도체 투톱 강세 - 뉴데일리 경제</div>
-    <div class="summary">'휴전 지속 기대감' 코스피 5900선 재도전 … 반도체 투톱 강세    뉴데일리 경제</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성전자 반도체</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMie0FVX3lxTE81dl96YU43Zmw1YjczRjl4dEl1ajFfVDJFRUV2RnJtODZpdGJuZjMyT2lVbXpxbGdCYmtEQlJQS2ZNTE13R3gzSF91UUY3eExWQlFQUFpaWHpPUXZmNlp2NllkYjVhSUt0bDV5UGhMX2EwTi0yMVJaUFY2UQ?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">마켓인</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">시지트로닉스, '우주반도체' 수혜 기대감에 상한가 - 마켓인</div>
-    <div class="summary">시지트로닉스, '우주반도체' 수혜 기대감에 상한가    마켓인</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성 파운드리</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMic0FVX3lxTE0tOEtldmp4NGM5VVRqNGdKNDVnQklMNlRFaXJwLWJuTHZja0gydG1ZcEJ6T1VZdEFlanNBbzUyYWVTLV9DUXN3THE1cDZuMGYwUVpuejdtZ2hTU1c4LTl1ajVyUzJ3WUtOa1RuY3MySGZpdU0?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
+        <!-- Achievements Section -->
+        <section id="achievements">
+            <div class="container">
+                <h2 class="section-title">Key Accomplishments</h2>
+                <div class="project-grid">
+                     <a href="index.html" target="_blank" class="project-card reveal" style="border: 2px solid #1428A0;">
+                        <div class="card-inner">
+                            <h4 style="color: #1428A0;">⚙️ 삼성 뉴스 & 마켓 모니터</h4>
+                            <p>삼성전자 핵심 사업부 및 경쟁사 실시간 동향 모니터링 자동화 대시보드 구축.</p>
+                            <span class="tag" style="background: #E5F0FF; color: #1428A0;">성과: 데이터 저널리즘 기반 정보 자동화</span>
+                        </div>
+                    </a>
+                     <a href="https://mediahub.seoul.go.kr/archives/2014833" target="_blank" class="project-card reveal">
+                        <div class="card-inner">
+                            <h4>서울AI스마트시티센터</h4>
+                            <p>첨단 기술 체험 리포트 및 예약 절차 안내.</p>
+                            <span class="tag">성과: 첨단 기술 정책의 시민 체감도 향상</span>
+                        </div>
+                    </a>
+                     <a href="https://mediahub.seoul.go.kr/archives/2014636" target="_blank" class="project-card reveal">
+                        <div class="card-inner">
+                            <h4>서울시립 사진미술관</h4>
+                            <p>사전 건축 미학 및 AI 감상 시스템 소개.</p>
+                            <span class="tag">성과: 신규 문화 시설의 인지도 확산</span>
+                        </div>
+                    </a>
+                    <a href="https://mediahub.seoul.go.kr/archives/2014359" target="_blank" class="project-card reveal">
+                        <div class="card-inner">
+                            <h4>잠수교 뚜벅뚜벅 축제</h4>
+                            <p>보행 경험 및 플리마켓 현장 스케치 요약.</p>
+                            <span class="tag">성과: 생동감 있는 축제 현장 정보화</span>
+                        </div>
+                    </a>
+                    <a href="https://mediahub.seoul.go.kr/archives/2014000" target="_blank" class="project-card reveal">
+                        <div class="card-inner">
+                            <h4>한강역사탐방 마포나루길</h4>
+                            <p>도화낭자 설화 스토리텔링, 16개 코스 동선 안내.</p>
+                            <span class="tag">성과: 역사적 가치와 걷기 여행의 연결</span>
+                        </div>
+                    </a>
+                    <a href="https://mediahub.seoul.go.kr/archives/2013540" target="_blank" class="project-card reveal">
+                        <div class="card-inner">
+                            <h4>한성백제박물관</h4>
+                            <p>야간 개관 취재, 6만 6천여 권 장서 가이드.</p>
+                            <span class="tag">성과: 박물관을 '북캉스' 거점으로 재정의</span>
+                        </div>
+                    </a>
+                    <a href="https://mediahub.seoul.go.kr/archives/2011340" target="_blank" class="project-card reveal">
+                        <div class="card-inner">
+                            <h4>서울형 책방 테마</h4>
+                            <p>지역 서점 문화 프로그램 심층 분석.</p>
+                            <span class="tag">성과: 아이템 발굴상 수상</span>
+                        </div>
+                    </a>
+                </div>
             </div>
-            
-            <h2 class="section-title">🏢 디스플레이</h2>
-            <div class="grid">
-                
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">컨슈머타임스</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">삼성디스플레이, 모니터용 QD-OLED 누적 출하 500만 대 돌파 - 컨슈머타임스</div>
-    <div class="summary">삼성디스플레이, 모니터용 QD-OLED 누적 출하 500만 대 돌파    컨슈머타임스</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 QD-OLED</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiakFVX3lxTE9vVDR4a0xqUkNWc3JNTlNUQm4yN2JDRGpiTzQwdEVlTGRXTndsZVRsMnFYbTdNTm5UWlUxUUxra2JLd2c4aVA2YU1fWkZGS3BJVGhPeW5wSEpzR0VtRVFuNHo0LXN6U2dBSEE?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
+        </section>
 
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">소셜밸류</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">삼성디스플레이, QD-OLED 모니터 누적 500만대 출하 - 소셜밸류</div>
-    <div class="summary">삼성디스플레이, QD-OLED 모니터 누적 500만대 출하    소셜밸류</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 QD-OLED</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTE5uTFUxLVk3TUpNQXFLdVZrNWpoc1daT08yVXV1Vkd4SDQ1cGVzb3I3OC1MLVA2ZDFManljeTNhUnVrR2E4djJyN2ZSSFFMYjI0aHh1SkxoSzRNNC1IRnl5N3QxRdIBbEFVX3lxTFBBOWl6THZmcmVpbm1BM3BrSV9ob0dCaUcxX3hBZTAxeVAyal8taGNoTFdteWxVMEJmZVZnb010MkpacWR6TGhaSlNIaHhWY21ybGdCRGJSNWlkNWtWQXRlQmlhUVFUX0JzWU4wNQ?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">천지일보</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">삼성디스플레이 ‘모니터용 QD-OLED’, 누적 출하 500만대 돌파 - 천지일보</div>
-    <div class="summary">삼성디스플레이 ‘모니터용 QD-OLED’, 누적 출하 500만대 돌파    천지일보</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성디스플레이</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiakFVX3lxTE1zQUVLdUdnTFRxTEtUTkRUNUpKSlFIOUZtRTlqbHJ1MWFQRnFHLTJiUWxoRlhFUkp4eG04Q0djVTBib1pJTm94UE5rMzV3T0Z1NUNCMUtUWldTTGhrSEhZRjhacVBXOC1qTHc?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">v.daum.net</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">삼성디스플레이 '모니터용 QD-OLED', 누적 출하량 500만대 돌파 - v.daum.net</div>
-    <div class="summary">삼성디스플레이 '모니터용 QD-OLED', 누적 출하량 500만대 돌파    v.daum.net</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 QD-OLED</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiT0FVX3lxTFBtTS1JX1RHV0NnbU5DRXhFdHRYVkdEOEZib1A1NXFfUERnY1YtU3FzdXNVU1VKQnlXdXhndzJxYUlINDEzZ0Vmd2NDZ3B4bkE?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">에너지경제신문</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">삼성디스플레이, 모니터용 QD-OLED 누적 출하 500만대 달성 - 에너지경제신문</div>
-    <div class="summary">삼성디스플레이, 모니터용 QD-OLED 누적 출하 500만대 달성    에너지경제신문</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성디스플레이</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiW0FVX3lxTE1hQ2d0X1BNRWFrbEhseTQ3SVFMZUpDY0JDd0J6OHhDSXlLM2NJMThJU1lCSkExcXNVMnFFTDZhRFJyaDZKWVJOMGpVRTRfVi05MGlEb3cwcDFyOUU?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">에너지경제신문</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">삼성디스플레이, 모니터용 QD-OLED 누적 출하 500만대 달성 - 에너지경제신문</div>
-    <div class="summary">삼성디스플레이, 모니터용 QD-OLED 누적 출하 500만대 달성    에너지경제신문</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 QD-OLED</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiY0FVX3lxTFBIY0ZIM3lxR2EtMVUwQWVPSmdoakJSOWZtcmVEMjNTYTVrVklqV1hmOFVxYWl1dFBrTy1hTW1ZaERjbHk3Q1RXV0xESDZhRTB6WTN1RW5jZzQxeHhCQmE3TzZUNA?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">nocutnews.co.kr</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">삼성디스플레이 '모니터용 QD-OLED', 누적 출하량 500만대 돌파 - nocutnews.co.kr</div>
-    <div class="summary">삼성디스플레이 '모니터용 QD-OLED', 누적 출하량 500만대 돌파    nocutnews.co.kr 삼성디스플레이, 모니터용 QD-OLED 누적 출하 500만 대 달성    ...</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성디스플레이</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiUkFVX3lxTE9UdEtmak05QndpZ3FYNEVEdVJiNjRYUkhkNlpVLWR2SlRhbEZuaVppbC1CQ2t6RmtmcXFhamN2UmRnVGFGcEhSSFQxbWtiUEwxM3c?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">파이낸셜뉴스</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">QD-OLED 모니터 뜬다… 삼성D, 출하량 500만대 돌파 - 파이낸셜뉴스</div>
-    <div class="summary">QD-OLED 모니터 뜬다… 삼성D, 출하량 500만대 돌파    파이낸셜뉴스</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 QD-OLED</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiWkFVX3lxTE9TREw4Q2QyOUN6MzVaUzFNMndDWGpDNTVjS090Tk9QLWVuUmRxYWtFX2xUaHdZYnFic0ZLNWhGLW9CaHlwdW1WcmZFbGpobGxMbW1ZV2tYcVpGUdIBXkFVX3lxTE1yYXdoZDI5Qi1GM0xJT2R3NnVWS0JQX2hRV0p4Q1U1UDVaSjgzc2VsVUw4SUNpZmN1eXNoTDRXYnZWekIxNUtmNWZVX19Jc3JieXh0aC0tV1JTaE9WV1E?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">이뉴스투데이</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">삼성D, QD-OLED 모니터 누적 500만대 돌파···‘자발광 대세화’ 주도 - 이뉴스투데이</div>
-    <div class="summary">삼성D, QD-OLED 모니터 누적 500만대 돌파···‘자발광 대세화’ 주도    이뉴스투데이</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 QD-OLED</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMicEFVX3lxTE1aSkVpMXMxZE1wWjZ5WGYyaG5lUG9vOHI3MV9SaE5QR0hIdnJXYXZNWlljMFJlRzBVMVQxTE9CM1FDNThlMVhrY1NtaExHQ1l0eUJyZGl0NGZXcFJqRWlqVG14WWRIajdBNHE0QksxZDfSAXRBVV95cUxNUVNPR2p6c3d5dXl5OXpWa1QyckZReXZSekdOb3luSE1DMHFYV2hSSDJsbEt2SGJ2aXhIZl81RENORVRkUXZTajBOR2MwQjVXZDU0YjduTHB2RFFzMnZ5Q1NjVUxWVG5WdmktdjNGRXNtS1lWcA?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">신아일보</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">삼성D, 모니터용 QD-OLED 출하량 500만대 돌파 - 신아일보</div>
-    <div class="summary">삼성D, 모니터용 QD-OLED 출하량 500만대 돌파    신아일보</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 QD-OLED</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMicEFVX3lxTE1KN1hDTFpFZmxfMEs2UjBQZmowZWFsYkgteGQtMTFsYUhpQWRWXy12bkZZVV8xdk5hNlFSb25HcHhZa214bE1FdXFpdGVUb1lSTzJubHVIVHc5emxsSDZuYzY3MWZ1MU9hdW82bUpFdmU?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">생생비즈플러스</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">하만 사운드와 삼성 디스플레이가 만났다...휴식과 안전 챙긴 기술 보니 - 생생비즈플러스</div>
-    <div class="summary">하만 사운드와 삼성 디스플레이가 만났다...휴식과 안전 챙긴 기술 보니    생생비즈플러스</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 삼성디스플레이</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMibEFVX3lxTE11dVFsVGh1U21UeDJfbXJiNEpOcHdvc0pwUXVldE1laGpOMkRxWnVrNVg2N2prdXVaQlZCLWRfbmlIUWtUSFdlLWJWSmxISjhIX2xPdkR0b1lGcy1FQTJJQVNTRHVDRUlkMWNjbw?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">디일렉</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">삼성디스플레이, 모니터용 QD-OLED 누적 500만대 출하 - 디일렉</div>
-    <div class="summary">삼성디스플레이, 모니터용 QD-OLED 누적 500만대 출하    디일렉</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 QD-OLED</span>
-            <span>⏱ 2026-04-09</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiZkFVX3lxTE00c25NUXRfdElkejNPWXRva1VMc2JsNlFCWVR2eVJPa3lMR2RvY2IxUVZ2UUZWVENJZHlBbDJTQlRwMFpYVlc1T0pvMHVyVE50dzZSTnQ3VHFZRnl5X3BaYUN4YzlpZw?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
+        <!-- Tech Stack Section -->
+        <section id="tech">
+            <div class="container">
+                <h2 class="section-title">Technical Architecture</h2>
+                <div class="tech-grid">
+                    <div class="tech-card reveal">
+                        <h4>AI & Data Journalism</h4>
+                        <ul>
+                            <li>공공데이터 수집/분석</li>
+                            <li>기사/멀티미디어 자동 생성</li>
+                            <li>CMS 연동 실시간 배포</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card reveal">
+                        <h4>Python Analysis</h4>
+                        <ul>
+                            <li>Pandas / Numpy 통계 분석</li>
+                            <li>Matplotlib / Seaborn 시각화</li>
+                            <li>Streamlit 대시보드 구축</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card reveal">
+                        <h4>NLP & RAG/Agent</h4>
+                        <ul>
+                            <li>RAG 파이프라인 구축 (Vector DB)</li>
+                            <li>Dify / LangGraph 에이전트 설계</li>
+                            <li>LLM 프롬프트 엔지니어링</li>
+                        </ul>
+                    </div>
+                    <div class="tech-card reveal">
+                        <h4>Vision & Generation</h4>
+                        <ul>
+                            <li>이미지 처리 및 딥러닝 비전</li>
+                            <li>OpenAI Sora 멀티미디어 생성</li>
+                            <li>데이터 시각화 인포그래픽</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            
-            <h2 class="section-title">🏢 경쟁사 동향</h2>
-            <div class="grid">
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-wrapper reveal">
+                    <div class="contact-info">
+                        <p>협업 문의나 프로젝트 관련 상담은 아래 연락처로 부탁드립니다.</p>
+                        <div class="info-item">
+                            <span class="icon">📧</span>
+                            <a href="mailto:82_callme@naver.com">82_callme@naver.com</a>
+                        </div>
                 
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">네이트</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">애플 AI 필터 뚫렸다…76% 성공률 보인 프롬프트 인젝션 취약점 발견 - 네이트</div>
-    <div class="summary">애플 AI 필터 뚫렸다…76% 성공률 보인 프롬프트 인젝션 취약점 발견    네이트</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 애플</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTFBUVG44UERmQ2hDUGluOEJMamNyT3NCanBxQjh4a1FPSGNVSWpMMjRYLU8tZlJ0Xy1sanBVMnVaa3VJZUV4MDFRSjIyekViVXhjbXZj?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">Korea IT Times</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">KB증권, "SK하이닉스, 내년 영업익 세계 3위" 목표가 190만원으로 상향 - Korea IT Times</div>
-    <div class="summary">KB증권, "SK하이닉스, 내년 영업익 세계 3위" 목표가 190만원으로 상향    Korea IT Times</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 SK하이닉스</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMicEFVX3lxTE5Bd3dJSUZWX2czQzZTaG9WMHdqMkRnUllONlNBMVBTaGpQVWFlRlRaVWRob3VaZnJMdG5fU2JldW92blkwUV9sanMxdXlMd1B1OVRpdDVmQW5xa2xCWENQREZYTm1jRzk5eHdyYWN3R0I?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">주간동아</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">“SK하이닉스 올해 영업이익 MS·구글 누른다… 목표가 190만 원” - 주간동아</div>
-    <div class="summary">“SK하이닉스 올해 영업이익 MS·구글 누른다… 목표가 190만 원”    주간동아</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 SK하이닉스</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiZEFVX3lxTE5GXzFnaWxmTkE4RDJ1UUdMTWNReGZIbHpZMWRBdWFKWGxldndTeW4yVzdIUGczUFZUTU83TGtBRWFtSkJsNF9OWXZxV3RPOUpQUkVIZW90eDlqcGV2eUkzVWhESXA?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">금강일보</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">SK하이닉스 주가, 상승세... 이유는 목표주가 상향? - 금강일보</div>
-    <div class="summary">SK하이닉스 주가, 상승세... 이유는 목표주가 상향?    금강일보</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 SK하이닉스</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiakFVX3lxTE1ySFpacEdBRkpMcEIyQ2VWQXhBREZ0c181VFlrTktZSUp5QndZWHpCYjN0MWJDZjcxSndnWjlRWVZraWN1bFdUbnRydmVrRDhtVXI3T0htZ1dWMUVxRC1DTVN4RU9MZ1IwVHc?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">글로벌이코노믹</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">[특징주] 삼성전자·SK하이닉스, 미국-이란 휴전 기대 재부각 '강세' - 글로벌이코노믹</div>
-    <div class="summary">[특징주] 삼성전자·SK하이닉스, 미국-이란 휴전 기대 재부각 '강세'    글로벌이코노믹</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 SK하이닉스</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiiAFBVV95cUxOekhWNkhYYVBUX296eXBvWmhYc0Fxdk1HaFpPZ0tNR0x5ZXlyOWdXQ3hQNFRWRWYzMjl6SEdNY3kzU1N0cXdVRGNIV0FQbDczR2JGckM0ckRKWDhiWE5pSGRmTEI3VlZGeVZ0NDlKX3BlM001aTlOcFVDU3dKWVRBZ18wd0pEd21U?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">네이트</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">[속보] 코스피, 5900선 복귀…삼성전자·SK하이닉스 3%대 급등 - 네이트</div>
-    <div class="summary">[속보] 코스피, 5900선 복귀…삼성전자·SK하이닉스 3%대 급등    네이트</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 SK하이닉스</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiU0FVX3lxTFBUdlVGSTBhNkdvclVoSEtIVUNIRE9qVlRIU1BNMjNyUEVnVUlIb2ZUV0p2Nmt1UFp0SzBUSWJBZ1FnQ2JVb1J2dDJ4YVRGaWZ0cDVn?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">애플경제</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">애플카툰 - 애플경제</div>
-    <div class="summary">애플카툰    애플경제</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 애플</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMib0FVX3lxTE1ZUWhFNDhaVVRvUldQSTlKWXQ5R1lySGlpcmVTdkRjUHUyZWpaeTNrdmFZSDgzMGZmLVo4OEZMdnVoZ0dFSG5QcDJwVXRBUzh4VExkdXV0WC1BOUduMTVuOXZuZzRmdlUwWTQyTUx0dw?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">파이낸셜뉴스</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">'180만원' '190만원' SK하이닉스 목표가 줄상향.."내년 글로벌 3위 기업 도약" - 파이낸셜뉴스</div>
-    <div class="summary">'180만원' '190만원' SK하이닉스 목표가 줄상향.."내년 글로벌 3위 기업 도약"    파이낸셜뉴스</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 SK하이닉스</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMiWkFVX3lxTFBNOXdNVGhOdlJzSFVXNE02MnN5R3k3UEZQSVI3czRwaTV1Q1VOTW8xTFQwYXVaU0lsbXY1WHRZeFhxTkxMQ21uZkJGRVpkWVU1OVpnblNhOHZVZ9IBXkFVX3lxTFBldm5kY0FfZFRFU085em9pc0tJSFZhcUhkN25IQTZoT1RodUp0VWx5aFVIWE1MdkRMZTktTzNPRzJwWDZjR1dMd2lWQkVFR2VscnJYTXJpRW5VZkh0M2c?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">중앙이코노미뉴스</div>
-        <div class="safety-badge safe">안전</div>
-    </div>
-    <div class="title">SK하이닉스 주가, 4월 10일 장중 1,032,000원 3.41% 상승 - 중앙이코노미뉴스</div>
-    <div class="summary">SK하이닉스 주가, 4월 10일 장중 1,032,000원 3.41% 상승    중앙이코노미뉴스</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 SK하이닉스</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMickFVX3lxTE5STVo1b2M5WWlKZ3lBTTU4azgxdTFvNUVib2JDUmsyeVZ0dVJjNUR2ajZtX3pVY3pvbDJ6MWRuZDFkSjdyc3hhV2hRRGxZc2xBWDhvRlFWOXowanJZeHVsNDFWdXpVbF9WYjQyV2ZwSzZMdw?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">디지털투데이</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">쇼핑몰 침체 못 버텼다…애플, 美 리테일 매장 3곳 6월 폐쇄 - 디지털투데이</div>
-    <div class="summary">쇼핑몰 침체 못 버텼다…애플, 美 리테일 매장 3곳 6월 폐쇄    디지털투데이</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 애플</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMic0FVX3lxTE9WUGc5UG9OaGx5MzlaVkJWMThtZGVYYWNxMmMxaVc1UzVhRUM1WS1RZzdoYUdEZS1MN3ZiR3d0dHRxMks5MmdudFVYZTB5dWJER2RSX3FWR0ZlZmI3TVduYWJuV2ZpQU5IbU1HN0JNMFNEQk0?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">디지털투데이</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">애플 첫 폴더블 아이폰, 삼성디스플레이가 잡았다…3년 독점 공급설 - 디지털투데이</div>
-    <div class="summary">애플 첫 폴더블 아이폰, 삼성디스플레이가 잡았다…3년 독점 공급설    디지털투데이</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 애플</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMic0FVX3lxTE1VV0NpSFE4Q3JPRlVBczEyVHRsMmM5aV9vb3FjZ1k0eGxNdDVSWHNOTmZQa2E1VXZaOG8tUEdLWDdqdERZRmFPb21Dbl96MnUxTmNwb3RKWnRVczl1LV9rLWhRZ01ZS3VHV3pxb1l2eWVMNGM?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
-<div class="card">
-    <div class="card-header">
-        <div class="source-tag">NANOOM ENERGY</div>
-        <div class="safety-badge safe">중립</div>
-    </div>
-    <div class="title">긴장 완화 속 코스피 급등…삼성전자·SK하이닉스 강세, 투자자들 매수 집중 - NANOOM ENERGY</div>
-    <div class="summary">긴장 완화 속 코스피 급등…삼성전자·SK하이닉스 강세, 투자자들 매수 집중    NANOOM ENERGY</div>
-    <div class="monitor-pane">
-        <div class="monitor-header">
-            <span>🛡 SK하이닉스</span>
-            <span>⏱ 2026-04-10</span>
-        </div>
-    </div>
-    <a href="https://news.google.com/rss/articles/CBMia0FVX3lxTE1TQVZoTDVWaUlmQUlNWmoxd2xWMXV3TlR4aUV5akREVEZ3LTFDVDZtcFNWeUNYX1RscTJLSS1ibnd3NmFCWDlzOGdHUnFwODNSeXZ5STZKbXp1emtpNHB6WmZXMnRaOFNCNXZ3?oc=5" target="_blank" class="link">기사 본문보기 →</a>
-</div>
-
+                    </div>
+                </div>
             </div>
-            
+        </section>
+    </main>
 
-    </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AI & Data Specialist Portfolio. All rights reserved.</p>
+        </div>
+    </footer>
 
-    <!-- Chart.js Scripts -->
-    <script>
-        const ctxCategory = document.getElementById('categoryChart').getContext('2d');
-        const categoryData = {"경쟁사 동향": 307, "DS (반도체)": 256, "DX (모바일/가전)": 349, "디스플레이": 146};
-        
-        new Chart(ctxCategory, {
-            type: 'doughnut',
-            data: {
-                labels: Object.keys(categoryData),
-                datasets: [{
-                    data: Object.values(categoryData),
-                    backgroundColor: ['#1428A0', '#00A9FF', '#74b9ff', '#b2bec3']
-                }]
-            },
-            options: { 
-                responsive: true, 
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { position: 'right' }
-                }
-            }
-        });
-
-        const ctxKeyword = document.getElementById('keywordChart').getContext('2d');
-        const keywordData = {"애플": 102, "삼성전자 반도체": 82, "SK하이닉스": 108, "삼성 가전": 80, "삼성전자 스마트폰": 70, "QD-OLED": 92, "삼성 파운드리": 84, "삼성 갤럭시": 99, "삼성 HBM": 90, "TSMC": 97, "삼성디스플레이": 54, "삼성 녹스": 100};
-        const words = Object.keys(keywordData).slice(0,10);
-        const counts = Object.values(keywordData).slice(0,10);
-        
-        new Chart(ctxKeyword, {
-            type: 'bar',
-            data: {
-                labels: words,
-                datasets: [{
-                    label: '검색 키워드 빈도',
-                    data: counts,
-                    backgroundColor: 'rgba(20, 40, 160, 0.7)',
-                    borderColor: 'rgba(20, 40, 160, 1)',
-                    borderWidth: 1,
-                    borderRadius: 5
-                }]
-            },
-            options: { 
-                responsive: true, 
-                maintainAspectRatio: false,
-                scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
