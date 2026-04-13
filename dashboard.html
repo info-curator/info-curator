@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samsung Real-time Monitor</title>
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            /* Samsung-inspired Premium Palette */
+            --primary: #1428A0;
+            --primary-glow: rgba(20, 40, 160, 0.4);
+            --bg-base: #0f172a; /* Slate 900 base */
+            --card-bg: rgba(30, 41, 59, 0.7); /* Slate 800 */
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8; /* Light Blue for highlights */
+            --danger: #ef4444;
+            --success: #10b981;
+            
+            --glass-blur: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Dark Background with Glow */
+        .animated-bg {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: -1;
+            background: radial-gradient(circle at 15% 50%, rgba(20, 40, 160, 0.15), transparent 25%),
+                        radial-gradient(circle at 85% 30%, rgba(56, 189, 248, 0.1), transparent 25%);
+            animation: bgShift 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgShift {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .dashboard-wrapper {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Glassmorphism Header */
+        .glass-header {
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 1.5rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-area i {
+            color: var(--accent);
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 0 8px var(--primary-glow));
+        }
+
+        .logo-area h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .live-clock {
+            font-family: 'Inter', 'Pretendard', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent);
+            background: rgba(56, 189, 248, 0.1);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Layout */
+        .dashboard-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        /* Stats Cards */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .glass-card h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .glass-card h2 i {
+            color: var(--accent);
+            width: 20px;
+            height: 20px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 280px;
+            width: 100%;
+        }
+
+        /* News Section */
+        .category-block {
+            margin-bottom: 3rem;
+        }
+
+        .category-header {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 4px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .refresh-btn {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+        }
+        
+        .refresh-btn:hover {
+            color: var(--text-main);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .news-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+
+        .news-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            background: var(--card-bg);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        .news-card:hover::before {
+            opacity: 1;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .source-badge {
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent);
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .news-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            line-height: 1.5;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-summary {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .news-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .pub-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .read-more {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: gap 0.2s;
+        }
+
+        .read-more:hover {
+            gap: 0.6rem;
+            color: #fff;
+        }
+
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 4px;
+        }
+        
+        .card-skeleton { height: 280px; border-radius: 16px; }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        @media (max-width: 1024px) {
+            .stats-section { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    
+    <div class="dashboard-wrapper">
+        <header class="glass-header">
+            <div class="logo-area">
+                <i data-lucide="cpu"></i>
+                <h1>Samsung Real-time Monitor</h1>
+            </div>
+            <div class="live-clock" id="live-clock">
+                <i data-lucide="clock"></i> <span>00:00:00</span>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            <!-- Charts Section -->
+            <section class="stats-section">
+                <div class="glass-card">
+                    <h2><i data-lucide="pie-chart"></i> 오늘 가장 많이 언급된 사업부는?</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; margin-top: -1rem; display:flex; align-items:center; gap:0.3rem;"><i data-lucide="info" style="width:14px; height:14px;"></i> 데이터 출처: 구글 뉴스 실시간 빅데이터 빈도</p>
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+                <div class="glass-card">
+                    <h2><i data-lucide="bar-chart-2"></i> 실시간 핫 키워드</h2>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; margin-top: -1rem; display:flex; align-items:center; gap:0.3rem;"><i data-lucide="info" style="width:14px; height:14px;"></i> 데이터 출처: 전 세계 미디어 보도 핵심 키워드 추출</p>
+                    <div class="chart-container">
+                        <canvas id="keywordChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dynamic News Container -->
+            <section id="news-root"></section>
+            
+        </main>
+    </div>
+
+    <!-- Logic Script -->
+    <script src="dashboard_script.js"></script>
+</body>
+</html>
