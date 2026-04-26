@@ -1,631 +1,633 @@
 :root {
-    --glass-bg: rgba(255, 255, 255, 0.1);
+    --primary-color: #2563eb;
+    --secondary-color: #64748b;
+    --accent-color: #3b82f6;
+    --bg-light: #f8fafc;
+    --bg-dark: #0f172a;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
+    --glass-bg: rgba(255, 255, 255, 0.7);
     --glass-border: rgba(255, 255, 255, 0.2);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    
-    --text-primary: #ffffff;
-    --text-secondary: rgba(255, 255, 255, 0.7);
-    --accent: #00ffcc;
-    --accent-glow: 0 0 10px rgba(0, 255, 204, 0.5);
-    
-    --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+    --transition-fast: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 body {
-    font-family: var(--font-main);
-    color: var(--text-primary);
-    background-color: #0b0c10;
-    min-height: 100vh;
+    font-family: 'Inter', 'Noto Sans KR', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.6;
     overflow-x: hidden;
 }
 
-/* Animated Dynamic Background */
-.animated-bg {
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 50% 50%, #1f2833 0%, #0b0c10 40%, #000000 100%);
-    z-index: -1;
-    animation: rotateBg 30s linear infinite;
-}
-
-.animated-bg::before {
-    content: '';
-    position: absolute;
-    top: 20%;
-    left: 20%;
-    width: 60%;
-    height: 60%;
-    background: radial-gradient(circle, rgba(69, 162, 158, 0.15) 0%, transparent 60%);
-    border-radius: 50%;
-    filter: blur(80px);
-    animation: floatBlob 15s ease-in-out infinite alternate;
-}
-
-.animated-bg::after {
-    content: '';
-    position: absolute;
-    bottom: 20%;
-    right: 20%;
-    width: 50%;
-    height: 50%;
-    background: radial-gradient(circle, rgba(102, 252, 241, 0.1) 0%, transparent 50%);
-    border-radius: 50%;
-    filter: blur(100px);
-    animation: floatBlob 20s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes rotateBg {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-@keyframes floatBlob {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(5%, 10%) scale(1.1); }
-}
-
-/* Layout */
-.dashboard-wrapper {
-    max-width: 1440px;
+.container {
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    min-height: 100vh;
+    padding: 0 2rem;
 }
 
-/* Glassmorphism Header */
-.glass-header {
+/* Header & Nav */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
     background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1rem 0;
+    transition: var(--transition-fast);
+}
+
+nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: var(--glass-shadow);
 }
 
 .logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--bg-dark);
+}
+
+.logo span {
+    color: var(--primary-color);
+    font-weight: 400;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition-fast);
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* Sections Global */
+section {
+    padding: 100px 0;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+    color: var(--bg-dark);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+/* Hero Section */
+#hero {
+    height: 100vh;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    min-width: 0;   /* 플렉스 자식 넘침 방지 */
-    flex: 1;
+    padding-top: 80px;
+    background: radial-gradient(circle at top right, #dbeafe 0%, #f8fafc 50%);
 }
 
-.logo i {
-    color: var(--accent);
-    filter: drop-shadow(var(--accent-glow));
-    flex-shrink: 0;
+.hero-content {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+    gap: 4rem;
 }
 
-.logo h1 {
-    font-size: clamp(1rem, 3.5vw, 1.8rem); /* 모바일: 최소 1rem 보장, 데스크톱: 최대 1.8rem */
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    white-space: nowrap;         /* 한 줄 유지 */
-    overflow: hidden;
-    text-overflow: ellipsis;     /* 넘치면 ... */
-    background: linear-gradient(90deg, #fff, #c5c6c7);
+.hero-text h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--bg-dark);
+}
+
+.hero-text h1 span {
+    background: linear-gradient(90deg, var(--primary-color), #8b5cf6);
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.live-clock {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    background: rgba(0, 0, 0, 0.2);
-    padding: 0.5rem 1rem;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.05);
-    white-space: nowrap;   /* 시간 한 줄 유지 */
-    flex-shrink: 0;        /* 헤더 flex에서 줄어들지 않음 */
+.hero-text .subtitle {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
 }
 
-/* Grid System */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto 1fr;
-    gap: 1.5rem;
-    flex: 1;
-}
-
-/* Glassmorphism Cards */
-.glass-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 1.5rem;
-    box-shadow: var(--glass-shadow);
+.cta {
     display: flex;
-    flex-direction: column;
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    gap: 1rem;
 }
 
-.glass-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    border-color: rgba(255,255,255,0.3);
+.btn {
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-fast);
+    display: inline-block;
 }
 
-/* Widget Layouts */
-.weather-widget {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
 }
 
-.price-widget {
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.3);
 }
 
-.culture-widget {
-    grid-column: 2 / 4;
-    grid-row: 1 / 3;
+.btn-secondary {
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
 }
 
-@media (max-width: 1024px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto;
-    }
-    .weather-widget { grid-column: 1 / 3; grid-row: 1; }
-    .price-widget   { grid-column: 1 / 3; grid-row: 2; }
-    .culture-widget { grid-column: 1 / 3; grid-row: 3; }
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: white;
 }
 
-@media (max-width: 768px) {
-    .dashboard-wrapper { padding: 0.875rem; gap: 0.875rem; }
-
-    /* 헤더: 로고와 시계를 한 줄에 유지, 내부에서 wrap */
-    .glass-header {
-        flex-direction: row;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 0.6rem;
-        padding: 0.9rem 1rem;
-        border-radius: 14px;
-    }
-
-    /* 로고는 flex-grow로 남은 공간 차지, 시계는 줄바꿈 허용 */
-    .logo { flex: 1 1 auto; min-width: 0; gap: 0.5rem; }
-    .logo i { width: 20px; height: 20px; }
-    /* h1은 clamp로 이미 조절됨 */
-
-    .live-clock {
-        flex: 0 0 auto;
-        font-size: 0.82rem;
-        padding: 0.4rem 0.75rem;
-        border-radius: 8px;
-    }
-
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-    }
-    .weather-widget, .price-widget, .culture-widget {
-        grid-column: 1 / 2;
-        grid-row: auto;
-    }
-
-    /* Widget header */
-    .widget-header {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-bottom: 1rem;
-    }
-    .widget-header h2 { font-size: 1rem; }
-
-    /* 날씨: 세로 스택 */
-    .weather-content {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    .weather-forecast {
-        width: 100%;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        gap: 0.6rem;
-    }
-    .weather-today .temp { font-size: 2.8rem; }
-
-    /* 지도 */
-    .map-container { height: 240px; }
-
-    /* 이벤트 카드 */
-    .event-card { padding: 0.875rem; }
-    .event-img { width: 68px; height: 68px; }
-    .event-info h3 { font-size: 0.9rem; }
-
-    /* 차트 */
-    .chart-container { height: 200px; }
-
-    /* select */
-    .glass-select { font-size: 0.82rem; }
+.hero-image img {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 30px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+    animation: float 6s ease-in-out infinite;
 }
 
-/* Widget Header */
-.widget-header {
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Vision Section */
+.vision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    gap: 2rem;
+}
+
+.vision-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    transition: var(--transition-fast);
+    height: 100%;
+}
+
+.vision-card:hover {
+    transform: translateY(-10px);
+}
+
+.vision-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.vision-card ul {
+    list-style: none;
+}
+
+.vision-card li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+    font-weight: 500;
+}
+
+.vision-card li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+}
+
+.vision-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.core-box {
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-weight: 800;
+    font-size: 1.25rem;
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.4);
+    animation: pulse 4s infinite alternate;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+.vision-desc {
+    text-align: center;
+    margin-top: 4rem;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+/* Process Section */
+.pipeline {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    gap: 1.5rem;
+    flex-wrap: wrap;
 }
 
-.widget-header h2 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.widget-header h2 i {
-    color: var(--accent);
-    width: 20px;
-    height: 20px;
-}
-
-.badge {
-    background: rgba(255,255,255,0.1);
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-}
-.badge.highlight {
-    background: rgba(69, 162, 158, 0.2);
-    color: var(--accent);
-    box-shadow: var(--accent-glow);
-}
-
-/* Forms / Selects */
-.glass-select {
-    background: rgba(0,0,0,0.3);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 0.4rem 2rem 0.4rem 1rem;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 0.9rem;
-    outline: none;
-    appearance: none;
-    cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.5rem center;
-    background-size: 1em;
-}
-
-.glass-select option {
-    background: #1f2833;
-    color: #fff;
-}
-
-/* Weather Specifics */
-.weather-content {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.weather-today {
+.step {
+    flex: 1;
+    min-width: 200px;
     text-align: center;
-}
-
-.weather-today .temp {
-    font-size: 3.5rem;
-    font-weight: 700;
-    line-height: 1;
-    background: linear-gradient(135deg, #fff, #66fcf1);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.weather-forecast {
-    display: flex;
-    gap: 1rem;
-}
-.forecast-day {
-    background: rgba(0,0,0,0.2);
-    padding: 1rem 0.8rem;
-    border-radius: 12px;
-    text-align: center;
-    border: 1px solid rgba(255,255,255,0.05);
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    transition: transform 0.2s;
-}
-.forecast-day:hover {
-    transform: translateY(-3px);
-    background: rgba(255,255,255,0.05);
-}
-.forecast-day .day { font-size: 0.85rem; color: var(--text-secondary); }
-.forecast-day .temps { font-weight: 600; font-size: 1.1rem; }
-
-/* Picnic & Tips Specifics */
-.picnic-tips {
-    background: rgba(255,255,255,0.05);
-    border-radius: 12px;
-    padding: 1rem;
-    border: 1px dashed rgba(255,255,255,0.2);
-}
-.picnic-tips ul {
-    list-style-type: none;
-    padding-left: 0;
-    margin-top: 0.5rem;
-}
-.picnic-tips li {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.4rem;
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.9);
-}
-
-/* Price Chart Specifics */
-.chart-container {
-    position: relative;
-    height: 250px;
-    width: 100%;
-}
-.price-summary {
-    margin-top: 1rem;
-    padding: 1rem;
-    background: rgba(69, 162, 158, 0.1);
-    border-left: 4px solid var(--accent);
-    border-radius: 0 8px 8px 0;
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
-
-/* Culture Specifics */
-.culture-widget {
     position: relative;
 }
-.map-container {
-    height: 300px;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.1);
-    margin-bottom: 1.5rem;
-    background: #eaeaea; /* Lighter background fallback */
+
+.step-num {
+    font-size: 3rem;
+    font-weight: 800;
+    color: rgba(37, 99, 235, 0.1);
+    margin-bottom: -1rem;
 }
-/* Leaflet overrides for map styling */
-.leaflet-container {
-    background: #f0f0f0;
-    font-family: var(--font-main);
+
+.step h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--bg-dark);
 }
-.leaflet-popup-content-wrapper, .leaflet-popup-tip, .leaflet-tooltip {
-    background: rgba(255, 255, 255, 0.95) !important;
-    color: #000 !important;
+
+.step p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Achievements */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.project-card {
+    perspective: 1000px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.card-inner {
+    background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
-    border: 2px solid var(--accent) !important;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-    font-weight: 600;
-    border-radius: 8px;
-}
-
-.event-list {
-    flex: 1;
-    overflow-y: auto;
+    border: 1px solid var(--glass-border);
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
-    padding-right: 0.5rem;
-}
-/* Custom Scrollbar */
-.event-list::-webkit-scrollbar {
-    width: 6px;
-}
-.event-list::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.05);
-    border-radius: 10px;
-}
-.event-list::-webkit-scrollbar-thumb {
-    background: rgba(0, 255, 204, 0.5);
-    border-radius: 10px;
-}
-.event-list::-webkit-scrollbar-thumb:hover {
-    background: var(--accent);
+    justify-content: space-between;
+    transition: var(--transition-fast);
 }
 
-.event-card {
-    background: rgba(0,0,0,0.3);
-    border: 1px solid rgba(255,255,255,0.05);
-    border-radius: 12px;
-    padding: 1rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    transition: all 0.2s ease;
-    cursor: pointer;
+.project-card:hover .card-inner {
+    background: linear-gradient(135deg, var(--bg-dark), #1e293b);
+    color: white;
+    transform: translateY(-10px) rotateY(5deg);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    border-color: transparent;
 }
-.event-card:hover {
-    background: rgba(255,255,255,0.15);
-    border-color: rgba(255,255,255,0.3);
-    transform: translateX(5px);
+
+.project-card h4 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
 }
-.event-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    object-fit: cover;
-    background-color: rgba(255,255,255,0.1);
+
+.project-card p {
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
 }
-.event-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-}
-.event-info h3 {
-    font-size: 1rem;
+
+.tag {
+    font-size: 0.8rem;
+    background: #eff6ff;
+    color: var(--primary-color);
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
     font-weight: 600;
-    line-height: 1.3;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: inline-block;
 }
-.event-meta {
+
+.project-card:hover .tag {
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+/* Tech Stack */
+.tech-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.tech-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 24px;
+    border-left: 5px solid var(--primary-color);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+}
+
+.tech-card h4 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: var(--bg-dark);
+}
+
+.tech-card ul {
+    list-style: none;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-}
-.event-meta span {
-    background: rgba(255,255,255,0.1);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
+    gap: 0.8rem;
 }
 
-/* CCTV Button */
-.cctv-btn {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.3);
-    color: #fff;
-    padding: 0.6rem 1rem;
+.tech-card li {
+    background: #f1f5f9;
+    padding: 0.5rem 1.2rem;
     border-radius: 8px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 0.88rem;
-    transition: background 0.2s;
-    display: flex;              /* flex로 변경(전체 포함) */
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Contact */
+.contact-wrapper {
+    background: var(--bg-dark);
+    color: white;
+    padding: 5rem;
+    border-radius: 40px;
+    text-align: center;
+}
+
+.contact-info {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contact-info p {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+    opacity: 0.8;
+}
+
+.info-item {
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    width: 100%;
-    max-width: 100%;            /* 넘침 방지 */
-    box-sizing: border-box;
-    margin-top: 1rem;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.info-item a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    transition: var(--transition-fast);
+}
+
+.info-item a:hover {
+    color: var(--primary-color);
+}
+
+/* Footer */
+footer {
+    padding: 4rem 0;
     text-align: center;
-    line-height: 1.3;
-}
-.cctv-btn:hover {
-    background: rgba(255,255,255,0.18);
-}
-.cctv-btn i { width: 16px; height: 16px; flex-shrink: 0; }
-
-/* Touch optimization */
-.event-card, .forecast-day, .glass-card {
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
+    border-top: 1px solid #e2e8f0;
+    color: var(--text-muted);
 }
 
-/* Loader */
-.loader {
+/* Reveal Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: var(--transition-slow);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================
+   HAMBURGER MENU (Mobile Nav)
+========================================== */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
     width: 40px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: 
-      radial-gradient(farthest-side,var(--accent) 94%,#0000) top/8px 8px no-repeat,
-      conic-gradient(#0000 30%,var(--accent));
-    -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
-    mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
-    animation: l13 1s infinite linear;
-    margin: auto;
-}
-@keyframes l13{ 
-  100%{transform: rotate(1turn)}
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 8px;
+    transition: var(--transition-fast);
 }
 
-/* ── Mobile (≤480px) ── */
-@media (max-width: 480px) {
-    .dashboard-wrapper { padding: 0.75rem; gap: 0.75rem; }
+.nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text-main);
+    border-radius: 2px;
+    transition: var(--transition-fast);
+}
 
-    .glass-header {
-        padding: 0.75rem 0.875rem;
-        border-radius: 12px;
-        gap: 0.5rem;
+.nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ==========================================
+   RESPONSIVE BREAKPOINTS
+========================================== */
+
+/* ── Tablet ── */
+@media (max-width: 1024px) {
+    .vision-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    .vision-center { order: -1; }
+    .core-box { width: 200px; height: 200px; font-size: 1.1rem; }
+
+    .project-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    /* 시계 한 줄 유지 + 최소 포트 크기 */
-    .logo i { width: 18px; height: 18px; }
-
-    .live-clock {
-        font-size: 0.78rem;
-        padding: 0.35rem 0.6rem;
-        border-radius: 6px;
-        letter-spacing: -0.02em;
+    .tech-grid {
+        grid-template-columns: 1fr;
     }
 
-    .glass-card {
-        padding: 0.875rem;
-        border-radius: 14px;
+    .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
     }
+    .hero-text h1 { font-size: 2.5rem; }
+    .cta { justify-content: center; flex-wrap: wrap; }
+    .hero-image { order: -1; }
+    .hero-image img { max-width: 360px; }
+}
 
-    .widget-header { margin-bottom: 0.75rem; padding-bottom: 0.75rem; }
-    .widget-header h2 { font-size: 0.9rem; gap: 0.3rem; }
-    .widget-header h2 i { width: 15px; height: 15px; }
+/* ── Mobile (≤768px) ── */
+@media (max-width: 768px) {
+    /* Nav: show toggle, hide links */
+    .nav-toggle { display: flex; }
 
-    .weather-today .temp { font-size: 2.4rem; }
-    .forecast-day { padding: 0.7rem 0.55rem; min-width: 56px; }
-    .forecast-day .temps { font-size: 0.9rem; }
-    .forecast-day .day { font-size: 0.75rem; }
-
-    .map-container { height: 200px; }
-
-    /* 이벤트 카드: 그림 + 정보 세로 */
-    .event-card {
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 65px;
+        left: 0; right: 0;
+        background: rgba(255,255,255,0.97);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         flex-direction: column;
-        gap: 0.6rem;
-        padding: 0.875rem;
+        align-items: center;
+        gap: 0;
+        padding: 1rem 0 1.5rem;
+        border-bottom: 1px solid var(--glass-border);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        z-index: 999;
     }
-    .event-img { width: 100%; height: 110px; border-radius: 8px; }
-    .event-info h3 { font-size: 0.92rem; -webkit-line-clamp: 3; }
 
-    .chart-container { height: 180px; }
-    .glass-select { font-size: 0.78rem; padding: 0.3rem 1.4rem 0.3rem 0.5rem; }
+    .nav-links.open { display: flex; }
 
-    .price-summary { font-size: 0.85rem; padding: 0.75rem; }
+    .nav-links li { width: 100%; text-align: center; }
 
-    /* CCTV 버튼 폰트 축소 */
-    .cctv-btn { font-size: 0.82rem; padding: 0.55rem 0.875rem; }
+    .nav-links a {
+        display: block;
+        padding: 0.9rem 1rem;
+        font-size: 1rem;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    /* Container padding */
+    .container { padding: 0 1.2rem; }
+
+    /* Section spacing */
+    section { padding: 70px 0; }
+
+    /* Section title */
+    .section-title { font-size: 1.8rem; margin-bottom: 2.5rem; }
+
+    /* Hero */
+    #hero {
+        height: auto;
+        min-height: 100svh;
+        padding-top: 80px;
+        padding-bottom: 60px;
+    }
+
+    .hero-content { gap: 2rem; }
+
+    .hero-text h1 { font-size: 2rem; line-height: 1.3; }
+    .hero-text .subtitle { font-size: 1rem; margin-bottom: 2rem; }
+
+    .cta {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .btn { padding: 0.9rem 1.6rem; font-size: 0.95rem; width: 100%; max-width: 320px; text-align: center; }
+
+    .hero-image img { max-width: 280px; }
+
+    /* Vision */
+    .vision-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .vision-card { padding: 1.8rem; }
+    .vision-center { order: -1; }
+    .core-box { width: 170px; height: 170px; font-size: 1rem; }
+    .vision-desc { font-size: 1.1rem; margin-top: 2rem; }
+
+    /* Pipeline */
+    .pipeline {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    .step { min-width: unset; }
+
+    /* Projects */
+    .project-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .card-inner { padding: 1.8rem; }
+
+    /* Showcase video */
+    #showcase .container > div { gap: 1.2rem !important; }
+
+    /* Tech */
+    .tech-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+    .tech-card { padding: 1.8rem; }
+
+    /* Contact */
+    .contact-wrapper { padding: 2.5rem 1.5rem; border-radius: 24px; }
+    .info-item { font-size: 1.1rem; flex-direction: column; gap: 0.4rem; }
+
+    /* Footer */
+    footer { padding: 2.5rem 1rem; font-size: 0.9rem; }
 }
 
-/* ── Very Small Mobile (≤360px) ── */
-@media (max-width: 360px) {
-    .dashboard-wrapper { padding: 0.5rem; gap: 0.5rem; }
-    .glass-header { padding: 0.6rem 0.75rem; border-radius: 10px; gap: 0.4rem; }
-    /* clamp의 최소값이 1.1rem이라 추가 override 불필요 */
-    .logo i { width: 16px; height: 16px; }
-    .live-clock { font-size: 0.72rem; padding: 0.3rem 0.5rem; }
-    .glass-card { padding: 0.75rem; border-radius: 12px; }
-    .widget-header h2 { font-size: 0.85rem; }
-    .weather-today .temp { font-size: 2rem; }
-    .map-container { height: 175px; }
-    .chart-container { height: 160px; }
-    .event-img { height: 95px; }
-    .event-info h3 { font-size: 0.85rem; }
-    .cctv-btn { font-size: 0.78rem; padding: 0.5rem 0.75rem; }
+/* ── Small Mobile (≤400px) ── */
+@media (max-width: 400px) {
+    .hero-text h1 { font-size: 1.7rem; }
+    .section-title { font-size: 1.5rem; }
+    .logo { font-size: 1.2rem; }
+    .btn { padding: 0.8rem 1.2rem; font-size: 0.9rem; }
+    .core-box { width: 150px; height: 150px; font-size: 0.9rem; }
 }
