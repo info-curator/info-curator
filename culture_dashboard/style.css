@@ -2,13 +2,15 @@
     --glass-bg: rgba(255, 255, 255, 0.1);
     --glass-border: rgba(255, 255, 255, 0.2);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    
+
     --text-primary: #ffffff;
     --text-secondary: rgba(255, 255, 255, 0.7);
     --accent: #00ffcc;
     --accent-glow: 0 0 10px rgba(0, 255, 204, 0.5);
-    
-    --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+
+    --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto,
+        'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR',
+        'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
 }
 
 * {
@@ -25,7 +27,9 @@ body {
     overflow-x: hidden;
 }
 
-/* Animated Dynamic Background */
+/* ─────────────────────────────────────────
+   Animated Background
+───────────────────────────────────────── */
 .animated-bg {
     position: fixed;
     top: -50%;
@@ -40,10 +44,8 @@ body {
 .animated-bg::before {
     content: '';
     position: absolute;
-    top: 20%;
-    left: 20%;
-    width: 60%;
-    height: 60%;
+    top: 20%; left: 20%;
+    width: 60%; height: 60%;
     background: radial-gradient(circle, rgba(69, 162, 158, 0.15) 0%, transparent 60%);
     border-radius: 50%;
     filter: blur(80px);
@@ -53,10 +55,8 @@ body {
 .animated-bg::after {
     content: '';
     position: absolute;
-    bottom: 20%;
-    right: 20%;
-    width: 50%;
-    height: 50%;
+    bottom: 20%; right: 20%;
+    width: 50%; height: 50%;
     background: radial-gradient(circle, rgba(102, 252, 241, 0.1) 0%, transparent 50%);
     border-radius: 50%;
     filter: blur(100px);
@@ -64,16 +64,18 @@ body {
 }
 
 @keyframes rotateBg {
-    0% { transform: rotate(0deg); }
+    0%   { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
 @keyframes floatBlob {
-    0% { transform: translate(0, 0) scale(1); }
+    0%   { transform: translate(0, 0) scale(1); }
     100% { transform: translate(5%, 10%) scale(1.1); }
 }
 
-/* Layout */
+/* ─────────────────────────────────────────
+   Layout
+───────────────────────────────────────── */
 .dashboard-wrapper {
     max-width: 1440px;
     margin: 0 auto;
@@ -84,7 +86,9 @@ body {
     min-height: 100vh;
 }
 
-/* Glassmorphism Header */
+/* ─────────────────────────────────────────
+   Glassmorphism Header
+───────────────────────────────────────── */
 .glass-header {
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
@@ -101,18 +105,25 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
+    min-width: 0;       /* flex 자식 넘침 방지 */
+    flex: 1;
 }
 
 .logo i {
     color: var(--accent);
     filter: drop-shadow(var(--accent-glow));
+    flex-shrink: 0;
 }
 
 .logo h1 {
-    font-size: 1.8rem;
+    /* 모바일: 최소 1rem, 뷰포트 비례, 데스크톱: 최대 1.8rem */
+    font-size: clamp(1rem, 3.5vw, 1.8rem);
     font-weight: 700;
     letter-spacing: -0.5px;
+    white-space: nowrap;        /* 한 줄 유지 — 글자 세로 쌓임 방지 */
+    overflow: hidden;
+    text-overflow: ellipsis;    /* 공간 부족 시 … */
     background: linear-gradient(90deg, #fff, #c5c6c7);
     -webkit-background-clip: text;
     background-clip: text;
@@ -120,16 +131,20 @@ body {
 }
 
 .live-clock {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--text-secondary);
     background: rgba(0, 0, 0, 0.2);
     padding: 0.5rem 1rem;
     border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    white-space: nowrap;    /* 시간 한 줄 유지 */
+    flex-shrink: 0;         /* 헤더 flex에서 줄어들지 않음 */
 }
 
-/* Grid System */
+/* ─────────────────────────────────────────
+   Dashboard Grid
+───────────────────────────────────────── */
 .dashboard-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -138,7 +153,9 @@ body {
     flex: 1;
 }
 
-/* Glassmorphism Cards */
+/* ─────────────────────────────────────────
+   Glassmorphism Cards
+───────────────────────────────────────── */
 .glass-card {
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
@@ -150,15 +167,19 @@ body {
     display: flex;
     flex-direction: column;
     transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .glass-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    border-color: rgba(255,255,255,0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Widget Layouts */
+/* ─────────────────────────────────────────
+   Widget Layout (Desktop)
+───────────────────────────────────────── */
 .weather-widget {
     grid-column: 1 / 2;
     grid-row: 1 / 2;
@@ -172,35 +193,19 @@ body {
 .culture-widget {
     grid-column: 2 / 4;
     grid-row: 1 / 3;
+    position: relative;
 }
 
-@media (max-width: 1024px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-    .weather-widget { grid-column: 1 / 3; }
-    .price-widget { grid-column: 1 / 3; grid-row: 2/3; }
-    .culture-widget { grid-column: 1 / 3; grid-row: 3/4; }
-}
-
-@media (max-width: 768px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
-    }
-    .weather-widget, .price-widget, .culture-widget {
-        grid-column: 1 / 2;
-        grid-row: auto;
-    }
-}
-
-/* Widget Header */
+/* ─────────────────────────────────────────
+   Widget Header
+───────────────────────────────────────── */
 .widget-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .widget-header h2 {
@@ -218,24 +223,27 @@ body {
 }
 
 .badge {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.5px;
 }
+
 .badge.highlight {
     background: rgba(69, 162, 158, 0.2);
     color: var(--accent);
     box-shadow: var(--accent-glow);
 }
 
-/* Forms / Selects */
+/* ─────────────────────────────────────────
+   Forms / Selects
+───────────────────────────────────────── */
 .glass-select {
-    background: rgba(0,0,0,0.3);
+    background: rgba(0, 0, 0, 0.3);
     color: #fff;
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     padding: 0.4rem 2rem 0.4rem 1rem;
     border-radius: 8px;
     font-family: inherit;
@@ -254,7 +262,9 @@ body {
     color: #fff;
 }
 
-/* Weather Specifics */
+/* ─────────────────────────────────────────
+   Weather Widget
+───────────────────────────────────────── */
 .weather-content {
     display: flex;
     justify-content: space-around;
@@ -280,51 +290,57 @@ body {
     display: flex;
     gap: 1rem;
 }
+
 .forecast-day {
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
     padding: 1rem 0.8rem;
     border-radius: 12px;
     text-align: center;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     transition: transform 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
+
 .forecast-day:hover {
     transform: translateY(-3px);
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
 }
-.forecast-day .day { font-size: 0.85rem; color: var(--text-secondary); }
+
+.forecast-day .day   { font-size: 0.85rem; color: var(--text-secondary); }
 .forecast-day .temps { font-weight: 600; font-size: 1.1rem; }
 
-/* Picnic & Tips Specifics */
+/* Picnic Tips */
 .picnic-tips {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     padding: 1rem;
-    border: 1px dashed rgba(255,255,255,0.2);
+    border: 1px dashed rgba(255, 255, 255, 0.2);
 }
-.picnic-tips ul {
-    list-style-type: none;
-    padding-left: 0;
-    margin-top: 0.5rem;
-}
+
+.picnic-tips ul { list-style-type: none; padding-left: 0; margin-top: 0.5rem; }
+
 .picnic-tips li {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.4rem;
     font-size: 0.9rem;
-    color: rgba(255,255,255,0.9);
+    color: rgba(255, 255, 255, 0.9);
 }
 
-/* Price Chart Specifics */
+/* ─────────────────────────────────────────
+   Price Chart Widget
+───────────────────────────────────────── */
 .chart-container {
     position: relative;
     height: 250px;
     width: 100%;
 }
+
 .price-summary {
     margin-top: 1rem;
     padding: 1rem;
@@ -335,33 +351,36 @@ body {
     line-height: 1.5;
 }
 
-/* Culture Specifics */
-.culture-widget {
-    position: relative;
-}
+/* ─────────────────────────────────────────
+   Culture / Map Widget
+───────────────────────────────────────── */
 .map-container {
     height: 300px;
     border-radius: 16px;
     overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     margin-bottom: 1.5rem;
-    background: #eaeaea; /* Lighter background fallback */
+    background: #eaeaea;
 }
-/* Leaflet overrides for map styling */
-.leaflet-container {
-    background: #f0f0f0;
-    font-family: var(--font-main);
-}
-.leaflet-popup-content-wrapper, .leaflet-popup-tip, .leaflet-tooltip {
+
+/* Leaflet overrides */
+.leaflet-container { background: #f0f0f0; font-family: var(--font-main); }
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip,
+.leaflet-tooltip {
     background: rgba(255, 255, 255, 0.95) !important;
     color: #000 !important;
     backdrop-filter: blur(10px);
     border: 2px solid var(--accent) !important;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     font-weight: 600;
     border-radius: 8px;
 }
 
+/* ─────────────────────────────────────────
+   Event List
+───────────────────────────────────────── */
 .event-list {
     flex: 1;
     overflow-y: auto;
@@ -370,25 +389,15 @@ body {
     gap: 0.8rem;
     padding-right: 0.5rem;
 }
-/* Custom Scrollbar */
-.event-list::-webkit-scrollbar {
-    width: 6px;
-}
-.event-list::-webkit-scrollbar-track {
-    background: rgba(255,255,255,0.05);
-    border-radius: 10px;
-}
-.event-list::-webkit-scrollbar-thumb {
-    background: rgba(0, 255, 204, 0.5);
-    border-radius: 10px;
-}
-.event-list::-webkit-scrollbar-thumb:hover {
-    background: var(--accent);
-}
+
+.event-list::-webkit-scrollbar { width: 6px; }
+.event-list::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+.event-list::-webkit-scrollbar-thumb { background: rgba(0, 255, 204, 0.5); border-radius: 10px; }
+.event-list::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 .event-card {
-    background: rgba(0,0,0,0.3);
-    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     padding: 1rem;
     display: flex;
@@ -396,25 +405,33 @@ body {
     gap: 1rem;
     transition: all 0.2s ease;
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
+
 .event-card:hover {
-    background: rgba(255,255,255,0.15);
-    border-color: rgba(255,255,255,0.3);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
     transform: translateX(5px);
 }
+
 .event-img {
     width: 80px;
     height: 80px;
     border-radius: 8px;
     object-fit: cover;
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
 }
+
 .event-info {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
+    min-width: 0;
 }
+
 .event-info h3 {
     font-size: 1rem;
     font-weight: 600;
@@ -425,6 +442,7 @@ body {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
 .event-meta {
     display: flex;
     flex-wrap: wrap;
@@ -433,25 +451,191 @@ body {
     font-size: 0.8rem;
     color: var(--text-secondary);
 }
+
 .event-meta span {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
 }
 
-/* Loader */
+/* ─────────────────────────────────────────
+   CCTV Button
+───────────────────────────────────────── */
+.cctv-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: 1rem;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.cctv-btn:hover { background: rgba(255, 255, 255, 0.18); }
+.cctv-btn i { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* ─────────────────────────────────────────
+   Loader
+───────────────────────────────────────── */
 .loader {
     width: 40px;
     aspect-ratio: 1;
     border-radius: 50%;
-    background: 
-      radial-gradient(farthest-side,var(--accent) 94%,#0000) top/8px 8px no-repeat,
-      conic-gradient(#0000 30%,var(--accent));
-    -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
-    mask: radial-gradient(farthest-side,#0000 calc(100% - 8px),#000 0);
+    background:
+        radial-gradient(farthest-side, var(--accent) 94%, #0000) top/8px 8px no-repeat,
+        conic-gradient(#0000 30%, var(--accent));
+    -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+    mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
     animation: l13 1s infinite linear;
     margin: auto;
 }
-@keyframes l13{ 
-  100%{transform: rotate(1turn)}
+
+@keyframes l13 { 100% { transform: rotate(1turn); } }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+═══════════════════════════════════════════ */
+
+/* ── Tablet (≤1024px) ── */
+@media (max-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+
+    .weather-widget { grid-column: 1 / 3; grid-row: 1; }
+    .price-widget   { grid-column: 1 / 3; grid-row: 2; }
+    .culture-widget { grid-column: 1 / 3; grid-row: 3; }
+}
+
+/* ── Mobile (≤768px) ── */
+@media (max-width: 768px) {
+    .dashboard-wrapper { padding: 0.875rem; gap: 0.875rem; }
+
+    /* 헤더: 로고와 시계를 한 줄에 유지 */
+    .glass-header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.9rem 1rem;
+        border-radius: 14px;
+    }
+
+    .logo { flex: 1 1 auto; min-width: 0; gap: 0.5rem; }
+    .logo i { width: 20px; height: 20px; }
+
+    .live-clock {
+        flex: 0 0 auto;
+        font-size: 0.82rem;
+        padding: 0.4rem 0.75rem;
+        border-radius: 8px;
+    }
+
+    /* Grid: 1열 */
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .weather-widget,
+    .price-widget,
+    .culture-widget {
+        grid-column: 1 / 2;
+        grid-row: auto;
+    }
+
+    /* Widget header */
+    .widget-header { flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .widget-header h2 { font-size: 1rem; }
+
+    /* 날씨 */
+    .weather-content { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .weather-forecast { width: 100%; justify-content: flex-start; flex-wrap: wrap; gap: 0.6rem; }
+    .weather-today .temp { font-size: 2.8rem; }
+
+    /* 지도 */
+    .map-container { height: 240px; }
+
+    /* 이벤트 카드 */
+    .event-card { padding: 0.875rem; }
+    .event-img { width: 68px; height: 68px; }
+    .event-info h3 { font-size: 0.9rem; }
+
+    /* 차트 */
+    .chart-container { height: 200px; }
+
+    /* select */
+    .glass-select { font-size: 0.82rem; }
+}
+
+/* ── Small Mobile (≤480px) ── */
+@media (max-width: 480px) {
+    .dashboard-wrapper { padding: 0.75rem; gap: 0.75rem; }
+
+    .glass-header {
+        padding: 0.75rem 0.875rem;
+        border-radius: 12px;
+        gap: 0.5rem;
+    }
+
+    .logo i { width: 18px; height: 18px; }
+
+    .live-clock {
+        font-size: 0.78rem;
+        padding: 0.35rem 0.6rem;
+        border-radius: 6px;
+        letter-spacing: -0.02em;
+    }
+
+    .glass-card { padding: 0.875rem; border-radius: 14px; }
+
+    .widget-header { margin-bottom: 0.75rem; padding-bottom: 0.75rem; }
+    .widget-header h2 { font-size: 0.9rem; gap: 0.3rem; }
+    .widget-header h2 i { width: 15px; height: 15px; }
+
+    .weather-today .temp { font-size: 2.4rem; }
+    .forecast-day { padding: 0.7rem 0.55rem; min-width: 56px; }
+    .forecast-day .temps { font-size: 0.9rem; }
+    .forecast-day .day   { font-size: 0.75rem; }
+
+    .map-container { height: 200px; }
+
+    /* 이벤트 카드: 세로 배치 */
+    .event-card { flex-direction: column; gap: 0.6rem; padding: 0.875rem; }
+    .event-img { width: 100%; height: 110px; border-radius: 8px; }
+    .event-info h3 { font-size: 0.92rem; -webkit-line-clamp: 3; }
+
+    .chart-container { height: 180px; }
+    .glass-select { font-size: 0.78rem; padding: 0.3rem 1.4rem 0.3rem 0.5rem; }
+    .price-summary { font-size: 0.85rem; padding: 0.75rem; }
+    .cctv-btn { font-size: 0.82rem; padding: 0.55rem 0.875rem; }
+}
+
+/* ── Very Small Mobile (≤360px) ── */
+@media (max-width: 360px) {
+    .dashboard-wrapper { padding: 0.5rem; gap: 0.5rem; }
+    .glass-header { padding: 0.6rem 0.75rem; border-radius: 10px; gap: 0.4rem; }
+    .logo i { width: 16px; height: 16px; }
+    .live-clock { font-size: 0.72rem; padding: 0.3rem 0.5rem; }
+    .glass-card { padding: 0.75rem; border-radius: 12px; }
+    .widget-header h2 { font-size: 0.85rem; }
+    .weather-today .temp { font-size: 2rem; }
+    .map-container { height: 175px; }
+    .chart-container { height: 160px; }
+    .event-img { height: 95px; }
+    .event-info h3 { font-size: 0.85rem; }
+    .cctv-btn { font-size: 0.78rem; padding: 0.5rem 0.75rem; }
 }
