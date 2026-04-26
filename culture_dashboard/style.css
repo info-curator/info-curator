@@ -562,8 +562,9 @@ body {
     .widget-header h2 { font-size: 1rem; }
 
     /* 날씨 */
-    .weather-content { flex-direction: column; align-items: flex-start; gap: 1rem; }
-    .weather-forecast { width: 100%; justify-content: flex-start; flex-wrap: wrap; gap: 0.6rem; }
+    .weather-content { flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+    .weather-today { text-align: center; width: 100%; }
+    .weather-forecast { width: 100%; justify-content: center; flex-wrap: wrap; gap: 0.6rem; }
     .weather-today .temp { font-size: 2.8rem; }
 
     /* 지도 */
