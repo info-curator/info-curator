@@ -101,18 +101,24 @@ body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
+    min-width: 0;   /* 플렉스 자식 넘침 방지 */
+    flex: 1;
 }
 
 .logo i {
     color: var(--accent);
     filter: drop-shadow(var(--accent-glow));
+    flex-shrink: 0;
 }
 
 .logo h1 {
-    font-size: 1.8rem;
+    font-size: clamp(1rem, 3.5vw, 1.8rem); /* 모바일: 최소 1rem 보장, 데스크톱: 최대 1.8rem */
     font-weight: 700;
     letter-spacing: -0.5px;
+    white-space: nowrap;         /* 한 줄 유지 */
+    overflow: hidden;
+    text-overflow: ellipsis;     /* 넘치면 ... */
     background: linear-gradient(90deg, #fff, #c5c6c7);
     -webkit-background-clip: text;
     background-clip: text;
@@ -120,13 +126,15 @@ body {
 }
 
 .live-clock {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--text-secondary);
     background: rgba(0, 0, 0, 0.2);
     padding: 0.5rem 1rem;
     border-radius: 12px;
     border: 1px solid rgba(255,255,255,0.05);
+    white-space: nowrap;   /* 시간 한 줄 유지 */
+    flex-shrink: 0;        /* 헤더 flex에서 줄어들지 않음 */
 }
 
 /* Grid System */
@@ -177,20 +185,82 @@ body {
 @media (max-width: 1024px) {
     .dashboard-grid {
         grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
     }
-    .weather-widget { grid-column: 1 / 3; }
-    .price-widget { grid-column: 1 / 3; grid-row: 2/3; }
-    .culture-widget { grid-column: 1 / 3; grid-row: 3/4; }
+    .weather-widget { grid-column: 1 / 3; grid-row: 1; }
+    .price-widget   { grid-column: 1 / 3; grid-row: 2; }
+    .culture-widget { grid-column: 1 / 3; grid-row: 3; }
 }
 
 @media (max-width: 768px) {
+    .dashboard-wrapper { padding: 0.875rem; gap: 0.875rem; }
+
+    /* 헤더: 로고와 시계를 한 줄에 유지, 내부에서 wrap */
+    .glass-header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.9rem 1rem;
+        border-radius: 14px;
+    }
+
+    /* 로고는 flex-grow로 남은 공간 차지, 시계는 줄바꿈 허용 */
+    .logo { flex: 1 1 auto; min-width: 0; gap: 0.5rem; }
+    .logo i { width: 20px; height: 20px; }
+    /* h1은 clamp로 이미 조절됨 */
+
+    .live-clock {
+        flex: 0 0 auto;
+        font-size: 0.82rem;
+        padding: 0.4rem 0.75rem;
+        border-radius: 8px;
+    }
+
     .dashboard-grid {
         grid-template-columns: 1fr;
+        grid-template-rows: auto;
     }
     .weather-widget, .price-widget, .culture-widget {
         grid-column: 1 / 2;
         grid-row: auto;
     }
+
+    /* Widget header */
+    .widget-header {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    .widget-header h2 { font-size: 1rem; }
+
+    /* 날씨: 세로 스택 */
+    .weather-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    .weather-forecast {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+    }
+    .weather-today .temp { font-size: 2.8rem; }
+
+    /* 지도 */
+    .map-container { height: 240px; }
+
+    /* 이벤트 카드 */
+    .event-card { padding: 0.875rem; }
+    .event-img { width: 68px; height: 68px; }
+    .event-info h3 { font-size: 0.9rem; }
+
+    /* 차트 */
+    .chart-container { height: 200px; }
+
+    /* select */
+    .glass-select { font-size: 0.82rem; }
 }
 
 /* Widget Header */
@@ -439,6 +509,39 @@ body {
     border-radius: 4px;
 }
 
+/* CCTV Button */
+.cctv-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.88rem;
+    transition: background 0.2s;
+    display: flex;              /* flex로 변경(전체 포함) */
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;            /* 넘침 방지 */
+    box-sizing: border-box;
+    margin-top: 1rem;
+    text-align: center;
+    line-height: 1.3;
+}
+.cctv-btn:hover {
+    background: rgba(255,255,255,0.18);
+}
+.cctv-btn i { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* Touch optimization */
+.event-card, .forecast-day, .glass-card {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
 /* Loader */
 .loader {
     width: 40px;
@@ -454,4 +557,75 @@ body {
 }
 @keyframes l13{ 
   100%{transform: rotate(1turn)}
+}
+
+/* ── Mobile (≤480px) ── */
+@media (max-width: 480px) {
+    .dashboard-wrapper { padding: 0.75rem; gap: 0.75rem; }
+
+    .glass-header {
+        padding: 0.75rem 0.875rem;
+        border-radius: 12px;
+        gap: 0.5rem;
+    }
+
+    /* 시계 한 줄 유지 + 최소 포트 크기 */
+    .logo i { width: 18px; height: 18px; }
+
+    .live-clock {
+        font-size: 0.78rem;
+        padding: 0.35rem 0.6rem;
+        border-radius: 6px;
+        letter-spacing: -0.02em;
+    }
+
+    .glass-card {
+        padding: 0.875rem;
+        border-radius: 14px;
+    }
+
+    .widget-header { margin-bottom: 0.75rem; padding-bottom: 0.75rem; }
+    .widget-header h2 { font-size: 0.9rem; gap: 0.3rem; }
+    .widget-header h2 i { width: 15px; height: 15px; }
+
+    .weather-today .temp { font-size: 2.4rem; }
+    .forecast-day { padding: 0.7rem 0.55rem; min-width: 56px; }
+    .forecast-day .temps { font-size: 0.9rem; }
+    .forecast-day .day { font-size: 0.75rem; }
+
+    .map-container { height: 200px; }
+
+    /* 이벤트 카드: 그림 + 정보 세로 */
+    .event-card {
+        flex-direction: column;
+        gap: 0.6rem;
+        padding: 0.875rem;
+    }
+    .event-img { width: 100%; height: 110px; border-radius: 8px; }
+    .event-info h3 { font-size: 0.92rem; -webkit-line-clamp: 3; }
+
+    .chart-container { height: 180px; }
+    .glass-select { font-size: 0.78rem; padding: 0.3rem 1.4rem 0.3rem 0.5rem; }
+
+    .price-summary { font-size: 0.85rem; padding: 0.75rem; }
+
+    /* CCTV 버튼 폰트 축소 */
+    .cctv-btn { font-size: 0.82rem; padding: 0.55rem 0.875rem; }
+}
+
+/* ── Very Small Mobile (≤360px) ── */
+@media (max-width: 360px) {
+    .dashboard-wrapper { padding: 0.5rem; gap: 0.5rem; }
+    .glass-header { padding: 0.6rem 0.75rem; border-radius: 10px; gap: 0.4rem; }
+    /* clamp의 최소값이 1.1rem이라 추가 override 불필요 */
+    .logo i { width: 16px; height: 16px; }
+    .live-clock { font-size: 0.72rem; padding: 0.3rem 0.5rem; }
+    .glass-card { padding: 0.75rem; border-radius: 12px; }
+    .widget-header h2 { font-size: 0.85rem; }
+    .weather-today .temp { font-size: 2rem; }
+    .map-container { height: 175px; }
+    .chart-container { height: 160px; }
+    .event-img { height: 95px; }
+    .event-info h3 { font-size: 0.85rem; }
+    .cctv-btn { font-size: 0.78rem; padding: 0.5rem 0.75rem; }
 }
